@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ldc.SignalR.Rlangis
 {
-	public interface IRemoteRequest
+	public interface IRemoteRequester
 	{
 	}
 }

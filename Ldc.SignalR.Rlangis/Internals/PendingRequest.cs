@@ -9,5 +9,6 @@ namespace Ldc.SignalR.Rlangis.Internals
 	class PendingRequest
 	{
 		public Guid Id { get; set; }
+		public TaskCompletionSource<object> Tcs { get; set; }
 	}
 }

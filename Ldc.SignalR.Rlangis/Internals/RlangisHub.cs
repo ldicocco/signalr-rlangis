@@ -9,20 +9,36 @@ namespace Ldc.SignalR.Rlangis.Internals
 {
 	public class RlangisHub : Hub
 	{
+		public override Task OnConnected()
+		{
+			return base.OnConnected();
+		}
+
+		public override Task OnDisconnected()
+		{
+			//Servers.Instance.Remove(Context.ConnectionId);
+			return base.OnDisconnected();
+		}
+
 		public void _registerServer(string name, string interfaces)
 		{
 			var server = new Server { Name = name, Interface = interfaces, ConnectionId = Context.ConnectionId };
-			Servers.Instance.Add(server);
+			Servers.Instance.AddWithName(server);
 		}
 
 		public void _unregisterServer(string name)
 		{
-			Servers.Instance.Remove(name);
+			Servers.Instance.RemoveByName(name);
 		}
 
 		public void _result(Guid id, Object result)
 		{
-			Clients.All.hello("Welcome " + id);
+			var pr = PendingRequests.Instance.Get(id);
+			if (pr != null)
+			{
+				pr.Tcs.SetResult(result);
+			}
+//			Clients.All.hello("Welcome " + id);
 		}
 	}
 }

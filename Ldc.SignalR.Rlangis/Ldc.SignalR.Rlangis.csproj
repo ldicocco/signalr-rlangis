@@ -59,8 +59,9 @@
     <Compile Include="Internals\RlangisHub.cs" />
     <Compile Include="Internals\Server.cs" />
     <Compile Include="Internals\Servers.cs" />
-    <Compile Include="IRemoteRequest.cs" />
+    <Compile Include="IRemoteRequester.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RemoteRequester.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
