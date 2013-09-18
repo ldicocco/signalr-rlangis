@@ -16,8 +16,13 @@ namespace Ldc.SignalR.Rlangis.Internals
 
 		public override Task OnDisconnected()
 		{
-			//Servers.Instance.Remove(Context.ConnectionId);
+			Servers.Instance.Remove(Context.ConnectionId);
 			return base.OnDisconnected();
+		}
+
+		public override Task OnReconnected()
+		{
+			return base.OnReconnected();
 		}
 
 		public void _registerServer(string name, string interfaces)

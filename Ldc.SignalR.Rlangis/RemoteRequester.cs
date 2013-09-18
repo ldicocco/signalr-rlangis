@@ -41,6 +41,7 @@ namespace Ldc.SignalR.Rlangis
 			var pr = new PendingRequest();
 			pr.Id = Guid.NewGuid();
 			pr.Tcs = new TaskCompletionSource<object>();
+			pr.TimeStarted = DateTime.Now;
 			PendingRequests.Instance.Add(pr);
 			_context.Clients.Client(server.ConnectionId)._request(pr.Id, method, parlist);
 			return pr.Tcs.Task;

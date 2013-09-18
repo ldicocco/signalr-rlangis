@@ -89,7 +89,8 @@ namespace Ldc.SignalR.Rlangis.Internals
 		{
 			lock (syncRoot)
 			{
-				var server = _servers.Values.SingleOrDefault(p => p.Name == name);
+//				var server = _servers.Values.SingleOrDefault(p => p.Name == name);
+				var server = _servers.Values.FirstOrDefault(p => p.Name == name);
 				if (server != null)
 				{
 					_servers.Remove(server.ConnectionId);

@@ -23,6 +23,7 @@ namespace ConsoleClientDemo
 				hubProxy.On<string, string, object>("_request", (id, method, parameters) =>
 					{
 						Console.WriteLine(id + " " + method + " " + parameters);
+						System.Threading.Thread.Sleep(5000);
 						hubProxy.Invoke("_result", id, new { res = rnd.Next(42) });
 					});
 				hubConnection.Start().Wait();
