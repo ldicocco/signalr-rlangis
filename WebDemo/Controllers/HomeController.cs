@@ -21,7 +21,7 @@ namespace WebDemo.Controllers
 
         public async Task<ActionResult> TestRequest()
         {
-			var obj = await RemoteRequester.Instance.SendRequest("server01", "testMethod", 6, 9, "bing");
+			var obj = await RemoteRequester.Instance.SendRequestToName("server01", "testMethod", 6, 9, "bing");
 			dynamic res = obj;
             return View(res);
         }

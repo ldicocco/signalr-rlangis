@@ -5,7 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR;
 
-namespace Ldc.SignalR.Rlangis.Internals
+using Ldc.SignalR.Rlangis.Internals;
+
+namespace Ldc.SignalR.Rlangis
 {
 	public class RlangisHub : Hub
 	{
