@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleClientDemo", "Consol
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ldc.Signal.Rlangis.Client", "Ldc.Signal.Rlangis.Client\Ldc.Signal.Rlangis.Client.csproj", "{DA0948EC-F00D-4697-999A-A598BE7168B6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoInfrastructure", "DemoInfrastructure\DemoInfrastructure.csproj", "{1FFDC5E6-030D-4E6A-8964-35002BEAACC0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{DA0948EC-F00D-4697-999A-A598BE7168B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA0948EC-F00D-4697-999A-A598BE7168B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA0948EC-F00D-4697-999A-A598BE7168B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FFDC5E6-030D-4E6A-8964-35002BEAACC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FFDC5E6-030D-4E6A-8964-35002BEAACC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FFDC5E6-030D-4E6A-8964-35002BEAACC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FFDC5E6-030D-4E6A-8964-35002BEAACC0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -8,6 +8,8 @@ using Microsoft.AspNet.SignalR.Client.Hubs;
 
 using Ldc.Signal.Rlangis.Client;
 
+using DemoInfrastructure;
+
 namespace ConsoleClientDemo
 {
 	class Program
@@ -23,7 +25,7 @@ namespace ConsoleClientDemo
 				var rm = new RemoteMethods(url, "server01");
 				rm.AddMethod("testMethod", () =>
 					{
-						return new { res = 42 };
+						return new Country("Denmark", 5500000);
 					});
 				rm.AddMethod("add", (long a, long b) =>
 					{
@@ -42,24 +44,8 @@ namespace ConsoleClientDemo
 						};
 						return countries;
 					});
-				rm.Start();
+				rm.Start().Wait();
 				Console.WriteLine("Ready");
-
-/*
-				HubConnection hubConnection = new HubConnection(url);
-				var hubProxy = hubConnection.CreateHubProxy("RlangisHub");
-				hubProxy.On<string>("hello", (message) => Console.WriteLine(message));
-				hubProxy.On<string, string, object>("_request", (id, method, parameters) =>
-					{
-						Console.WriteLine(id + " " + method + " " + parameters);
-						System.Threading.Thread.Sleep(5000);
-						hubProxy.Invoke("_result", id, new { res = rnd.Next(42) });
-					});
-				hubConnection.Start().Wait();
-				Console.WriteLine("Ready");
-				//			hubProxy.Invoke("Hello");
-				//hubProxy.Invoke("_result", Guid.NewGuid(), new { res = 42 });
-				hubProxy.Invoke("_registerServer", "server01", "");*/
 			}
 			catch (Exception e)
 			{

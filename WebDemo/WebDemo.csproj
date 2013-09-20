@@ -255,6 +255,10 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DemoInfrastructure\DemoInfrastructure.csproj">
+      <Project>{1ffdc5e6-030d-4e6a-8964-35002beaacc0}</Project>
+      <Name>DemoInfrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Ldc.SignalR.Rlangis\Ldc.SignalR.Rlangis.csproj">
       <Project>{ac2ead17-b918-497f-a10f-22c956ea53fe}</Project>
       <Name>Ldc.SignalR.Rlangis</Name>

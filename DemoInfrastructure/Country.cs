@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleClientDemo
+namespace DemoInfrastructure
 {
-	class Country
+	public class Country
 	{
 		public string Name { get; set; }
 		public int Population { get; set; }
