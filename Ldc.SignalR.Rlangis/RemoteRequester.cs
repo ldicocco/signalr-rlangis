@@ -30,7 +30,7 @@ namespace Ldc.SignalR.Rlangis
 			_context = context;
 		}
 
-		public Task<object> SendRequest(string connectionId, string method, params object[] parlist)
+		public Task<TResult> SendRequest<TResult>(string connectionId, string method, params object[] parlist)
 		{
 			var pr = new PendingRequest();
 			pr.Id = Guid.NewGuid();
@@ -38,15 +38,15 @@ namespace Ldc.SignalR.Rlangis
 			pr.TimeStarted = DateTime.Now;
 			PendingRequests.Instance.Add(pr);
 			_context.Clients.Client(connectionId)._request(pr.Id, method, parlist);
-			return pr.Tcs.Task;
+			return pr.Tcs.Task.ContinueWith((t) => (TResult) t.Result);
 		}
 
-		public Task<object> SendRequestToName(string serverName, string method, params object[] parlist)
+		public Task<TResult> SendRequestToName<TResult>(string serverName, string method, params object[] parlist)
 		{
 			var server = Servers.Instance.GetByName(serverName);
 			if (server != null)
 			{
-				return SendRequest(server.ConnectionId, method, parlist);
+				return SendRequest<TResult>(server.ConnectionId, method, parlist);
 			}
 			else
 			{

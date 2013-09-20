@@ -10,6 +10,12 @@ namespace Ldc.SignalR.Rlangis.Internals
 	{
 		public Guid Id { get; set; }
 		public TaskCompletionSource<object> Tcs { get; set; }
+		public Type ResultType { get; set; }
 		public DateTime TimeStarted { get; set; }
+
+		public PendingRequest()
+		{
+			ResultType = typeof (object);
+		}
 	}
 }

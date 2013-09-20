@@ -40,6 +40,9 @@ namespace Ldc.SignalR.Rlangis
 
 		public void _result(Guid id, Object result)
 		{
+//			Newtonsoft.Json.Linq.JObject jo;
+//			Newtonsoft.Json.Linq.JArray ja;
+			
 			var pr = PendingRequests.Instance.Get(id);
 			if (pr != null)
 			{

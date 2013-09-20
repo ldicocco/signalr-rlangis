@@ -4,5 +4,14 @@
 
 <h2>Test Request</h2>
 
+<div>TestMethod: @ViewBag.TestMethodRes</div>
 <div>@ViewBag.AddRes</div>
 <div>@ViewBag.SayHelloRes</div>
+@*<div>@ViewBag.QueryCountriesRes</div>*@
+<table>
+	<tr><th>Name</th><th>Population</th></tr>
+@foreach (dynamic country in (IEnumerable<dynamic>)ViewBag.QueryCountriesRes)
+{
+	<tr><td>@country.Name</td><td>@country.Population</td></tr>
+}
+</table>

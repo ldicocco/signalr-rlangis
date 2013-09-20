@@ -21,14 +21,9 @@ namespace ConsoleClientDemo
 				Func<object[], object> func = (parms) => { return new { res = rnd.Next(42) }; };
 
 				var rm = new RemoteMethods(url, "server01");
-/*				rm.AddMethod("testMethod", (parms) =>
+				rm.AddMethod("testMethod", () =>
 					{
-						return new { res = rnd.Next(42) };
-					});*/
-				rm.AddMethod("testMethod", (long a) =>
-					{
-						Console.WriteLine("testMethod a = " + a);
-						return new { res = a  };
+						return new { res = 42 };
 					});
 				rm.AddMethod("add", (long a, long b) =>
 					{
@@ -37,6 +32,15 @@ namespace ConsoleClientDemo
 				rm.AddMethod("sayHello", (string a) =>
 					{
 						return "Hello " + a;
+					});
+				rm.AddMethod("queryCountries", () =>
+					{
+						var countries = new Country[] {
+							new Country("Italy", 56000000),
+							new Country("Denmark", 5500000),
+							new Country("U.S.A.", 316285000),
+						};
+						return countries;
 					});
 				rm.Start();
 				Console.WriteLine("Ready");
