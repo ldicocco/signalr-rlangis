@@ -55,9 +55,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Ldc.SignalR.Rlangis\Ldc.SignalR.Rlangis.csproj">
-      <Project>{ac2ead17-b918-497f-a10f-22c956ea53fe}</Project>
-      <Name>Ldc.SignalR.Rlangis</Name>
+    <ProjectReference Include="..\Ldc.Signal.Rlangis.Client\Ldc.Signal.Rlangis.Client.csproj">
+      <Project>{da0948ec-f00d-4697-999a-a598be7168b6}</Project>
+      <Name>Ldc.Signal.Rlangis.Client</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

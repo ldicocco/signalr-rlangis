@@ -32,36 +32,26 @@ namespace Ldc.SignalR.Rlangis
 
 		public Task<object> SendRequest(string connectionId, string method, params object[] parlist)
 		{
-			var server = Servers.Instance.Get(connectionId);
-			if (server == null)
-			{
-				return null;
-			}
-
 			var pr = new PendingRequest();
 			pr.Id = Guid.NewGuid();
 			pr.Tcs = new TaskCompletionSource<object>();
 			pr.TimeStarted = DateTime.Now;
 			PendingRequests.Instance.Add(pr);
-			_context.Clients.Client(server.ConnectionId)._request(pr.Id, method, parlist);
+			_context.Clients.Client(connectionId)._request(pr.Id, method, parlist);
 			return pr.Tcs.Task;
 		}
 
 		public Task<object> SendRequestToName(string serverName, string method, params object[] parlist)
 		{
 			var server = Servers.Instance.GetByName(serverName);
-			if (server == null)
+			if (server != null)
+			{
+				return SendRequest(server.ConnectionId, method, parlist);
+			}
+			else
 			{
 				return null;
 			}
-
-			var pr = new PendingRequest();
-			pr.Id = Guid.NewGuid();
-			pr.Tcs = new TaskCompletionSource<object>();
-			pr.TimeStarted = DateTime.Now;
-			PendingRequests.Instance.Add(pr);
-			_context.Clients.Client(server.ConnectionId)._request(pr.Id, method, parlist);
-			return pr.Tcs.Task;
 		}
 	}
 }
