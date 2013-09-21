@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ldc.SignalR.Rlangis.Internals
 {
-	class Server
+	class RlangisServerEntry
 	{
 		public string ConnectionId { get; set; }
 		public string Name { get; set; }

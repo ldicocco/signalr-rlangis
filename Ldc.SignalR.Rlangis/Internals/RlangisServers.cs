@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Ldc.SignalR.Rlangis.Internals
 {
-	class Servers
+	class RlangisServers
 	{
-		private static volatile Servers _instance;
+		private static volatile RlangisServers _instance;
 		private static object syncRoot = new Object();
 
-		private readonly IDictionary<string, Server> _servers = null;
+		private readonly IDictionary<string, RlangisServerEntry> _servers = null;
 
-		public static Servers Instance
+		public static RlangisServers Instance
 		{
 			get
 			{
@@ -23,7 +23,7 @@ namespace Ldc.SignalR.Rlangis.Internals
 					{
 						if (_instance == null)
 						{
-							_instance = new Servers();
+							_instance = new RlangisServers();
 						}
 					}
 				}
@@ -32,12 +32,12 @@ namespace Ldc.SignalR.Rlangis.Internals
 			}
 		}
 
-		private Servers()
+		private RlangisServers()
 		{
-			_servers = new Dictionary<string, Server>();
+			_servers = new Dictionary<string, RlangisServerEntry>();
 		}
 
-		public void Add(Server server)
+		public void Add(RlangisServerEntry server)
 		{
 			lock (syncRoot)
 			{
@@ -48,7 +48,7 @@ namespace Ldc.SignalR.Rlangis.Internals
 			}
 		}
 
-		public void AddWithName(Server server)
+		public void AddWithName(RlangisServerEntry server)
 		{
 			lock (syncRoot)
 			{
@@ -98,17 +98,17 @@ namespace Ldc.SignalR.Rlangis.Internals
 			}
 		}
 
-		public Server Get(string connectionId)
+		public RlangisServerEntry Get(string connectionId)
 		{
 			lock (syncRoot)
 			{
-				Server server = null;
+				RlangisServerEntry server = null;
 				_servers.TryGetValue(connectionId, out server);
 				return server;
 			}
 		}
 
-		public Server GetByName(string name)
+		public RlangisServerEntry GetByName(string name)
 		{
 			lock (syncRoot)
 			{

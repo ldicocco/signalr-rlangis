@@ -22,7 +22,7 @@ namespace ConsoleClientDemo
 				string url = "http://localhost:53588/";
 				Func<object[], object> func = (parms) => { return new { res = rnd.Next(42) }; };
 
-				var rm = new RemoteMethods(url, "server01");
+				var rm = new RlangisServer(url, "server01");
 				rm.AddMethod("testMethod", () =>
 					{
 						return new Country("Denmark", 5500000);

@@ -57,7 +57,7 @@ namespace Ldc.SignalR.Rlangis
 
 		public Task<TResult> SendRequestToName<TResult>(string serverName, string method, params object[] parlist)
 		{
-			var server = Servers.Instance.GetByName(serverName);
+			var server = RlangisServers.Instance.GetByName(serverName);
 			if (server != null)
 			{
 				return SendRequest<TResult>(server.ConnectionId, method, parlist);

@@ -18,7 +18,7 @@ namespace Ldc.SignalR.Rlangis
 
 		public override Task OnDisconnected()
 		{
-			Servers.Instance.Remove(Context.ConnectionId);
+			RlangisServers.Instance.Remove(Context.ConnectionId);
 			return base.OnDisconnected();
 		}
 
@@ -29,13 +29,13 @@ namespace Ldc.SignalR.Rlangis
 
 		public void _registerServer(string name, string interfaces)
 		{
-			var server = new Server { Name = name, Interface = interfaces, ConnectionId = Context.ConnectionId };
-			Servers.Instance.AddWithName(server);
+			var server = new RlangisServerEntry { Name = name, Interface = interfaces, ConnectionId = Context.ConnectionId };
+			RlangisServers.Instance.AddWithName(server);
 		}
 
 		public void _unregisterServer(string name)
 		{
-			Servers.Instance.RemoveByName(name);
+			RlangisServers.Instance.RemoveByName(name);
 		}
 
 		public void _result(Guid id, Object result)
