@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ldc.SignalR.Rlangis", "Ldc.SignalR.Rlangis\Ldc.SignalR.Rlangis.csproj", "{AC2EAD17-B918-497F-A10F-22C956EA53FE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDemo", "WebDemo\WebDemo.csproj", "{87EC9DFC-B671-42C2-853F-797C1E1C0F49}"
+	ProjectSection(ProjectDependencies) = postProject
+		{FDF502C9-9034-430E-A459-C875B842DB7F} = {FDF502C9-9034-430E-A459-C875B842DB7F}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleClientDemo", "ConsoleClientDemo\ConsoleClientDemo.csproj", "{19CEC45E-FBDA-4FBF-BB12-033EACE95C2A}"
 EndProject
