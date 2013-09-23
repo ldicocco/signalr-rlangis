@@ -30,7 +30,6 @@ namespace Ldc.Signal.Rlangis.Client
 		public Task<TResult> SendRequest<TResult>(string methodName, params object[] parlist)
 		{
 			var task = HubProxy.Invoke<object>("_routeToRlangisServer", ServerName, methodName, parlist);
-//			return task;
 			return task.ContinueWith((t) =>
 			{
 				var res = t.Result;
