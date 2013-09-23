@@ -29,6 +29,10 @@ namespace ConsoleServerSample
 				{
 					return a + b;
 				});
+				rm.AddMethod("addDouble", (double a, double b) =>
+				{
+					return a + b;
+				});
 				rm.AddMethod("sayHello", (string a) =>
 				{
 					return "Hello " + a;

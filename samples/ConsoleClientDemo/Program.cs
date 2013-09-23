@@ -36,11 +36,15 @@ namespace ConsoleClientDemo
 		static async void SendRequests(RlangisClient rc)
 		{
 			var res1 = await rc.SendRequest<Country>("testMethod");
-			Console.WriteLine(res1.Name);
+			Console.WriteLine("{0} {1}", res1.Name, res1.Population);
 			var res2 = await rc.SendRequest<long>("add", 2, 40);
 			Console.WriteLine(res2);
-			var res3 = await rc.SendRequest<IEnumerable<Country>>("queryCountries");
-			foreach (var item in res3)
+			var res21 = await rc.SendRequest<double>("addDouble", 2.5, 40.6);
+			Console.WriteLine(res21);
+			var res3 = await rc.SendRequest<string>("sayHello", "Luciano");
+			Console.WriteLine(res3);
+			var res4 = await rc.SendRequest<IEnumerable<Country>>("queryCountries");
+			foreach (var item in res4)
 			{
 				Console.WriteLine("{0} {1}" , item.Name, item.Population);
 			}
