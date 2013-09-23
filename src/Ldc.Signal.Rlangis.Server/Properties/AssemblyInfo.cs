@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Ldc.Signal.Rlangis.Client")]
+[assembly: AssemblyTitle("Ldc.Signal.Rlangis.Server")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Ldc.Signal.Rlangis.Client")]
+[assembly: AssemblyProduct("Ldc.Signal.Rlangis.Server")]
 [assembly: AssemblyCopyright("Copyright ©  2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("130ee40d-9185-4789-b5ff-9ccdc9049789")]
+[assembly: Guid("06a71212-f5b0-444d-8041-2975e4e16926")]
 
 // Version information for an assembly consists of the following four values:
 //

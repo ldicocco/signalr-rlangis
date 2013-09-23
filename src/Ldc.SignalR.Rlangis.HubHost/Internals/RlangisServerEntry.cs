@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ldc.SignalR.Rlangis.Internals
+namespace Ldc.SignalR.Rlangis.HubHost.Internals
 {
 	class RlangisServerEntry
 	{

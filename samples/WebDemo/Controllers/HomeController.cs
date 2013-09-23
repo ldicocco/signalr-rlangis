@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Threading.Tasks;
 
-using Ldc.SignalR.Rlangis;
+using Ldc.SignalR.Rlangis.HubHost;
 
 using DemoInfrastructure;
 

@@ -46,10 +46,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RlangisServer.cs" />
+    <Compile Include="RlangisClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Ldc.SignalR.Rlangis\Ldc.SignalR.Rlangis.csproj">
+      <Project>{7a099c1f-bbdb-46e3-aab9-45dba4b6ee5f}</Project>
+      <Name>Ldc.SignalR.Rlangis</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

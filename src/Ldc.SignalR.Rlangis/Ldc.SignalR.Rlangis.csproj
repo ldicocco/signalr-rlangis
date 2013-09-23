@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.AspNet.SignalR.Client">
+      <HintPath>..\..\packages\Microsoft.AspNet.SignalR.Client.2.0.0-rc1\lib\net45\Microsoft.AspNet.SignalR.Client.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Core">
       <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.0.0-rc1\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
     </Reference>
@@ -54,14 +57,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Internals\PendingRequest.cs" />
-    <Compile Include="Internals\PendingRequests.cs" />
-    <Compile Include="RlangisHub.cs" />
-    <Compile Include="Internals\RlangisServerEntry.cs" />
-    <Compile Include="Internals\RlangisServers.cs" />
-    <Compile Include="IRemoteRequester.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RemoteRequester.cs" />
+    <Compile Include="RlangisHubConnection.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR;
 
-using Ldc.SignalR.Rlangis.Internals;
+using Ldc.SignalR.Rlangis.HubHost.Internals;
 
-namespace Ldc.SignalR.Rlangis
+namespace Ldc.SignalR.Rlangis.HubHost
 {
 	public class RemoteRequester : IRemoteRequester
 	{

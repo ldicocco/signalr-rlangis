@@ -18,34 +18,12 @@ namespace ConsoleClientDemo
 		{
 			try
 			{
-				var rnd = new Random();
 				string url = "http://localhost:53588/";
-				Func<object[], object> func = (parms) => { return new { res = rnd.Next(42) }; };
 
-				var rm = new RlangisServer(url, "server01");
-				rm.AddMethod("testMethod", () =>
-					{
-						return new Country("Denmark", 5500000);
-					});
-				rm.AddMethod("add", (long a, long b) =>
-					{
-						return a + b;
-					});
-				rm.AddMethod("sayHello", (string a) =>
-					{
-						return "Hello " + a;
-					});
-				rm.AddMethod("queryCountries", () =>
-					{
-						var countries = new Country[] {
-							new Country("Italy", 56000000),
-							new Country("Denmark", 5500000),
-							new Country("U.S.A.", 316285000),
-						};
-						return countries;
-					});
+				var rm = new RlangisClient(url, "server01");
 				rm.Start().Wait();
 				Console.WriteLine("Ready");
+				SendRequests(rm);
 			}
 			catch (Exception e)
 			{
@@ -53,6 +31,19 @@ namespace ConsoleClientDemo
 			}
 
 			Console.ReadLine();
+		}
+
+		static async void SendRequests(RlangisClient rc)
+		{
+			var res1 = await rc.SendRequest<Country>("testMethod");
+			Console.WriteLine(res1.Name);
+			var res2 = await rc.SendRequest<long>("add", 2, 40);
+			Console.WriteLine(res2);
+			var res3 = await rc.SendRequest<IEnumerable<Country>>("queryCountries");
+			foreach (var item in res3)
+			{
+				Console.WriteLine("{0} {1}" , item.Name, item.Population);
+			}
 		}
 	}
 }

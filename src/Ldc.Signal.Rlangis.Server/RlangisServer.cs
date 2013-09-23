@@ -6,23 +6,18 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR.Client;
 using Microsoft.AspNet.SignalR.Client.Hubs;
 
-namespace Ldc.Signal.Rlangis.Client
+using Ldc.SignalR.Rlangis;
+
+namespace Ldc.Signal.Rlangis.Server
 {
-	public class RlangisServer
+	public class RlangisServer : RlangisHubConnection
 	{
-		string _serverName;
-		string _hubName;
-		HubConnection _hubConnection;
-		IHubProxy _hubProxy;
 		readonly Dictionary<string, Func<object[], object>> _methodsTable = new Dictionary<string,Func<object[],object>>();
 
 		public RlangisServer(string url, string serverName, string hubName = "RlangisHub")
+			: base(url, serverName, hubName)
 		{
-			_serverName = serverName;
-			_hubName = hubName;
-			_hubConnection = new HubConnection(url);
-			_hubProxy = _hubConnection.CreateHubProxy(_hubName);
-			_hubProxy.On<string, string, object[]>("_request", (id, method, parameters) =>
+			HubProxy.On<string, string, object[]>("_request", (id, method, parameters) =>
 			{
 				Console.WriteLine(id + " " + method + " " + parameters);
 				if (_methodsTable.ContainsKey(method))
@@ -30,19 +25,19 @@ namespace Ldc.Signal.Rlangis.Client
 					Console.WriteLine("Method " + method + " found.");
 					var res = _methodsTable[method](parameters);
 					Console.WriteLine("Result = " + res);
-					_hubProxy.Invoke("_result", id, res);
+					HubProxy.Invoke("_result", id, res);
 				}
 			});
 		}
 
 		public Task Start()
 		{
-			return _hubConnection.Start().ContinueWith((t) => _hubProxy.Invoke("_registerServer", _serverName, ""));
+			return HubConnection.Start().ContinueWith((t) => HubProxy.Invoke("_registerServer", ServerName, ""));
 		}
 
 		public void Stop()
 		{
-			_hubConnection.Stop();
+			HubConnection.Stop();
 		}
 
 		public void AddMethod(string methodName, Func<object[],object> func)
@@ -66,7 +61,6 @@ namespace Ldc.Signal.Rlangis.Client
 			Console.WriteLine("Encapsulated Func<T,object> " + methodName);
 			Func<object[], object> executedFunc = (list) =>
 				{
-					Console.WriteLine("Called " + list);
 /*					Console.WriteLine("Called " + list);
 					Console.WriteLine("Type expected " + (typeof (T)).Name);
 					Console.WriteLine("Type " + list[0].GetType().Name);
