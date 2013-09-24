@@ -55,7 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Internals\PendingRequest.cs" />
-    <Compile Include="Internals\PendingRequests.cs" />
+    <Compile Include="RlangisRequests.cs" />
     <Compile Include="Internals\RlangisServerEntry.cs" />
     <Compile Include="Internals\RlangisServers.cs" />
     <Compile Include="IRemoteRequester.cs" />

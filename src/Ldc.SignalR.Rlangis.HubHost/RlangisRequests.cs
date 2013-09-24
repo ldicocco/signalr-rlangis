@@ -5,18 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR;
 
-namespace Ldc.SignalR.Rlangis.HubHost.Internals
+using Ldc.SignalR.Rlangis.HubHost.Internals;
+
+namespace Ldc.SignalR.Rlangis.HubHost
 {
 	// Singleton
-	class PendingRequests
+	class RlangisRequests
 	{
 		private static object syncRoot = new Object();
-		private static volatile PendingRequests _instance;
+		private static volatile RlangisRequests _instance;
 		private IHubContext _context;
 
 		private readonly IDictionary<Guid, PendingRequest> _requests = null;
 
-		public static PendingRequests Instance
+		public static RlangisRequests Instance
 		{
 			get
 			{
@@ -26,7 +28,7 @@ namespace Ldc.SignalR.Rlangis.HubHost.Internals
 					{
 						if (_instance == null)
 						{
-							_instance = new PendingRequests();
+							_instance = new RlangisRequests();
 						}
 					}
 				}
@@ -35,7 +37,7 @@ namespace Ldc.SignalR.Rlangis.HubHost.Internals
 			}
 		}
 
-		private PendingRequests()
+		private RlangisRequests()
 		{
 			_requests = new Dictionary<Guid, PendingRequest>();
 			_context = GlobalHost.ConnectionManager.GetHubContext<RlangisHub>();
@@ -89,7 +91,7 @@ namespace Ldc.SignalR.Rlangis.HubHost.Internals
 			});
 		}
 
-		public Task<TResult> SendRequestToName<TResult>(string serverName, string method, params object[] parlist)
+		public Task<TResult> SendRequestToServer<TResult>(string serverName, string method, params object[] parlist)
 		{
 			var server = RlangisServers.Instance.GetByName(serverName);
 			if (server != null)
