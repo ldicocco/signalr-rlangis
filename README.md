@@ -8,6 +8,18 @@ In SignalR hubs it is possible for a client to get a return value
 from a hub method, but it is not possible to get a return value
 from a client method.
 
+This is generally fine, but there are scenarios where having a result from a client could be useful.
+
+One of these scenarios is having some resources on a machine behind firewalls, for example a database.
+With SignalR is easy to coll methods that interact with these resources, but you cannot directly query the database,
+as methods on the clients cannot give a result.
+It is relatively easy to simulate a result, but it involves some annoying boilerplate code.
+
+Samples
+-------
+
+One console app, possibly behind firewalls, can invoke and get results from another app in a different machine, possibly behind a different firewall.
+
 ## Server
 	var rm = new RlangisServer(url, "server01");
 	rm.AddMethod("testMethod", () =>
@@ -15,26 +27,26 @@ from a client method.
 		return new Country("Denmark", 5500000);
 	});
 	rm.AddMethod("add", (long a, long b) =>
-				{
-					return a + b;
-				});
-				rm.AddMethod("addDouble", (double a, double b) =>
-				{
-					return a + b;
-				});
-				rm.AddMethod("sayHello", (string a) =>
-				{
-					return "Hello " + a;
-				});
-				rm.AddMethod("queryCountries", () =>
-				{
-					var countries = new Country[] {
-							new Country("Italy", 56000000),
-							new Country("Denmark", 5500000),
-							new Country("U.S.A.", 316285000),
-						};
-					return countries;
-				});
+	{
+		return a + b;
+	});
+	rm.AddMethod("addDouble", (double a, double b) =>
+	{
+		return a + b;
+	});
+	rm.AddMethod("sayHello", (string a) =>
+	{
+		return "Hello " + a;
+	});
+	rm.AddMethod("queryCountries", () =>
+	{
+		var countries = new Country[] {
+			new Country("Italy", 56000000),
+			new Country("Denmark", 5500000),
+			new Country("U.S.A.", 316285000),
+		};
+		return countries;
+	});
 	rm.Start().Wait();
 
 ## Client
