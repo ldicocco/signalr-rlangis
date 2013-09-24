@@ -4,4 +4,55 @@ Rlangis
 A simple SignalR utility to get results from clients
 ---------------
 
-In SignalR hubs it is possible for a client to get a return value from a hub method, but it is not possible to get a return value from a client method.
+In SignalR hubs it is possible for a client to get a return value
+from a hub method, but it is not possible to get a return value
+from a client method.
+
+## Server
+	var rm = new RlangisServer(url, "server01");
+	rm.AddMethod("testMethod", () =>
+	{
+		return new Country("Denmark", 5500000);
+	});
+	rm.AddMethod("add", (long a, long b) =>
+				{
+					return a + b;
+				});
+				rm.AddMethod("addDouble", (double a, double b) =>
+				{
+					return a + b;
+				});
+				rm.AddMethod("sayHello", (string a) =>
+				{
+					return "Hello " + a;
+				});
+				rm.AddMethod("queryCountries", () =>
+				{
+					var countries = new Country[] {
+							new Country("Italy", 56000000),
+							new Country("Denmark", 5500000),
+							new Country("U.S.A.", 316285000),
+						};
+					return countries;
+				});
+	rm.Start().Wait();
+
+## Client
+	var rc = new RlangisClient(url, "server01");
+	rc.Start().Wait();
+	var res1 = await rc.SendRequest<Country>("testMethod");
+	Console.WriteLine("{0} {1}", res1.Name, res1.Population);
+	var res2 = await rc.SendRequest<long>("add", 2, 40);
+	Console.WriteLine(res2);
+	var res21 = await rc.SendRequest<double>("addDouble", 2.5, 40.6);
+	Console.WriteLine(res21);
+	var res3 = await rc.SendRequest<string>("sayHello", "Luciano");
+	Console.WriteLine(res3);
+	var res4 = await rc.SendRequest<IEnumerable<Country>>("queryCountries");
+	foreach (var item in res4)
+	{
+		Console.WriteLine("{0} {1}" , item.Name, item.Population);
+	}
+
+
+

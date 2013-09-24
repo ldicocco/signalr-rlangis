@@ -23,17 +23,18 @@ namespace WebDemo.Controllers
 
 		public async Task<ActionResult> TestRequest()
 		{
-			var res0 = await RlangisHubProxy.Instance.SendRequestToName<Country>("server01", "testMethod");
+			var proxy = new RlangisHubProxy("server01");
+			var res0 = await proxy.SendRequestToName<Country>("testMethod");
 			ViewBag.TestMethodRes = res0;
 
-			var res1 = await RlangisHubProxy.Instance.SendRequestToName<long>("server01", "add", 8, 34);
+			var res1 = await proxy.SendRequestToName<long>("add", 8, 34);
 			ViewBag.AddRes = res1;
 
-			var res2 = await RlangisHubProxy.Instance.SendRequestToName<string>("server01", "sayHello", "Luciano");
+			var res2 = await proxy.SendRequestToName<string>("sayHello", "Luciano");
 			ViewBag.SayHelloRes = res2;
 
 //			var res3 = await RemoteRequester.Instance.SendRequestToName<object>("server01", "queryCountries");
-			var res3 = await RlangisHubProxy.Instance.SendRequestToName<IEnumerable<Country>>("server01", "queryCountries");
+			var res3 = await proxy.SendRequestToName<IEnumerable<Country>>("queryCountries");
 //			ViewBag.QueryCountriesRes = ((Newtonsoft.Json.Linq.JArray)res3).ToArray<dynamic>();
 			ViewBag.QueryCountriesRes = res3;
 

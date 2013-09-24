@@ -16,9 +16,7 @@ namespace ConsoleServerSample
 		{
 			try
 			{
-				var rnd = new Random();
 				string url = "http://localhost:53588/";
-				Func<object[], object> func = (parms) => { return new { res = rnd.Next(42) }; };
 
 				var rm = new RlangisServer(url, "server01");
 				rm.AddMethod("testMethod", () =>

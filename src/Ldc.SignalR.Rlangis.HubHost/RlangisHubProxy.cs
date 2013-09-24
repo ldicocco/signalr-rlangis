@@ -15,7 +15,7 @@ namespace Ldc.SignalR.Rlangis.HubHost
 		private string _serverName;
 		private string _connectionId;
 
-		private RlangisHubProxy(string serverName = null)
+		public RlangisHubProxy(string serverName = null)
 		{
 			_context = GlobalHost.ConnectionManager.GetHubContext<RlangisHub>();
 		}
