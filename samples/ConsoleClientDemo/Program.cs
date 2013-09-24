@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR.Client;
-using Microsoft.AspNet.SignalR.Client.Hubs;
 
-using Ldc.Signal.Rlangis.Client;
+using Ldc.SignalR.Rlangis;
 
 using DemoInfrastructure;
 
@@ -18,12 +17,13 @@ namespace ConsoleClientDemo
 		{
 			try
 			{
-				string url = "http://localhost:53588/";
+				string hubUrl = "http://localhost:53588/";
 
-				var rm = new RlangisClient(url, "server01");
-				rm.Start().Wait();
+				var hubConnection = new HubConnection(hubUrl);
+				var hubProxy = hubConnection.CreateHubProxy("RlangisHub");
+				hubConnection.Start().Wait();
 				Console.WriteLine("Ready");
-				SendRequests(rm);
+				SendRequests(hubProxy);
 			}
 			catch (Exception e)
 			{
@@ -33,17 +33,17 @@ namespace ConsoleClientDemo
 			Console.ReadLine();
 		}
 
-		static async void SendRequests(RlangisClient rc)
+		static async void SendRequests(IHubProxy rc)
 		{
-			var res1 = await rc.SendRequest<Country>("testMethod");
+			var res1 = await rc.SendRequest<Country>("server01", "testMethod");
 			Console.WriteLine("{0} {1}", res1.Name, res1.Population);
-			var res2 = await rc.SendRequest<long>("add", 2, 40);
+			var res2 = await rc.SendRequest<long>("server01", "add", 2, 40);
 			Console.WriteLine(res2);
-			var res21 = await rc.SendRequest<double>("addDouble", 2.5, 40.6);
+			var res21 = await rc.SendRequest<double>("server01", "addDouble", 2.5, 40.6);
 			Console.WriteLine(res21);
-			var res3 = await rc.SendRequest<string>("sayHello", "Luciano");
+			var res3 = await rc.SendRequest<string>("server01", "sayHello", "Luciano");
 			Console.WriteLine(res3);
-			var res4 = await rc.SendRequest<IEnumerable<Country>>("queryCountries");
+			var res4 = await rc.SendRequest<IEnumerable<Country>>("server01", "queryCountries");
 			foreach (var item in res4)
 			{
 				Console.WriteLine("{0} {1}" , item.Name, item.Population);

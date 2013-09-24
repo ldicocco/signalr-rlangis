@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNet.SignalR.Client;
 
-using Ldc.Signal.Rlangis.Server;
+using Ldc.SignalR.Rlangis;
 
 using DemoInfrastructure;
 
@@ -16,26 +17,27 @@ namespace ConsoleServerSample
 		{
 			try
 			{
-				string url = "http://localhost:53588/";
+				string hubUrl = "http://localhost:53588/";
 
-				var rm = new RlangisServer(url, "server01");
-				rm.AddMethod("testMethod", () =>
+				var hubConnection = new HubConnection(hubUrl);
+				var hubProxy = hubConnection.CreateRlangisHubProxy("server01");
+				hubProxy.OnRlangis("testMethod", () =>
 				{
 					return new Country("Denmark", 5500000);
 				});
-				rm.AddMethod("add", (long a, long b) =>
+				hubProxy.OnRlangis("add", (long a, long b) =>
 				{
 					return a + b;
 				});
-				rm.AddMethod("addDouble", (double a, double b) =>
+				hubProxy.OnRlangis("addDouble", (double a, double b) =>
 				{
 					return a + b;
 				});
-				rm.AddMethod("sayHello", (string a) =>
+				hubProxy.OnRlangis("sayHello", (string a) =>
 				{
 					return "Hello " + a;
 				});
-				rm.AddMethod("queryCountries", () =>
+				hubProxy.OnRlangis("queryCountries", () =>
 				{
 					var countries = new Country[] {
 							new Country("Italy", 56000000),
@@ -44,7 +46,7 @@ namespace ConsoleServerSample
 						};
 					return countries;
 				});
-				rm.Start().Wait();
+				hubProxy.StartRlangis().Wait();
 				Console.WriteLine("Ready");
 			}
 			catch (Exception e)

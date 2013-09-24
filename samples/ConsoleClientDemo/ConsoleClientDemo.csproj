@@ -55,10 +55,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Ldc.Signal.Rlangis.Client\Ldc.Signal.Rlangis.Client.csproj">
-      <Project>{72a715da-399a-4776-8761-726013806906}</Project>
-      <Name>Ldc.Signal.Rlangis.Client</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\Ldc.SignalR.Rlangis\Ldc.SignalR.Rlangis.csproj">
       <Project>{7a099c1f-bbdb-46e3-aab9-45dba4b6ee5f}</Project>
       <Name>Ldc.SignalR.Rlangis</Name>

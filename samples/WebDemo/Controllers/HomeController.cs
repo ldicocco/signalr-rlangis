@@ -33,9 +33,7 @@ namespace WebDemo.Controllers
 			var res2 = await proxy.SendRequestToName<string>("sayHello", "Luciano");
 			ViewBag.SayHelloRes = res2;
 
-//			var res3 = await RemoteRequester.Instance.SendRequestToName<object>("server01", "queryCountries");
 			var res3 = await proxy.SendRequestToName<IEnumerable<Country>>("queryCountries");
-//			ViewBag.QueryCountriesRes = ((Newtonsoft.Json.Linq.JArray)res3).ToArray<dynamic>();
 			ViewBag.QueryCountriesRes = res3;
 
 			return View();

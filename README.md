@@ -21,46 +21,55 @@ Samples
 One console app, possibly behind firewalls, can invoke and get results from another app in a different machine, possibly behind a different firewall.
 
 ## Server
-	var rm = new RlangisServer(url, "server01");
-	rm.AddMethod("testMethod", () =>
+	string hubUrl = "http://localhost:53588/";
+
+	var hubConnection = new HubConnection(hubUrl);
+	var hubProxy = hubConnection.CreateRlangisHubProxy("server01");
+	hubProxy.OnRlangis("testMethod", () =>
 	{
 		return new Country("Denmark", 5500000);
 	});
-	rm.AddMethod("add", (long a, long b) =>
+	hubProxy.OnRlangis("add", (long a, long b) =>
 	{
 		return a + b;
 	});
-	rm.AddMethod("addDouble", (double a, double b) =>
+	hubProxy.OnRlangis("addDouble", (double a, double b) =>
 	{
 		return a + b;
 	});
-	rm.AddMethod("sayHello", (string a) =>
+	hubProxy.OnRlangis("sayHello", (string a) =>
 	{
 		return "Hello " + a;
 	});
-	rm.AddMethod("queryCountries", () =>
+	hubProxy.OnRlangis("queryCountries", () =>
 	{
 		var countries = new Country[] {
-			new Country("Italy", 56000000),
-			new Country("Denmark", 5500000),
-			new Country("U.S.A.", 316285000),
+		new Country("Italy", 56000000),
+		new Country("Denmark", 5500000),
+		new Country("U.S.A.", 316285000),
 		};
 		return countries;
 	});
-	rm.Start().Wait();
+	hubProxy.StartRlangis().Wait();
+	Console.WriteLine("Ready");
 
 ## Client
-	var rc = new RlangisClient(url, "server01");
-	rc.Start().Wait();
-	var res1 = await rc.SendRequest<Country>("testMethod");
+	string hubUrl = "http://localhost:53588/";
+
+	var hubConnection = new HubConnection(hubUrl);
+	var hubProxy = hubConnection.CreateHubProxy("RlangisHub");
+	hubConnection.Start().Wait();
+	Console.WriteLine("Ready");
+
+	var res1 = await rc.SendRequest<Country>("server01", "testMethod");
 	Console.WriteLine("{0} {1}", res1.Name, res1.Population);
-	var res2 = await rc.SendRequest<long>("add", 2, 40);
+	var res2 = await rc.SendRequest<long>("server01", "add", 2, 40);
 	Console.WriteLine(res2);
-	var res21 = await rc.SendRequest<double>("addDouble", 2.5, 40.6);
+	var res21 = await rc.SendRequest<double>("server01", "addDouble", 2.5, 40.6);
 	Console.WriteLine(res21);
-	var res3 = await rc.SendRequest<string>("sayHello", "Luciano");
+	var res3 = await rc.SendRequest<string>("server01", "sayHello", "Luciano");
 	Console.WriteLine(res3);
-	var res4 = await rc.SendRequest<IEnumerable<Country>>("queryCountries");
+	var res4 = await rc.SendRequest<IEnumerable<Country>>("server01", "queryCountries");
 	foreach (var item in res4)
 	{
 		Console.WriteLine("{0} {1}" , item.Name, item.Population);

@@ -16,6 +16,7 @@ namespace Ldc.SignalR.Rlangis.HubHost
 
 		public RlangisHubProxy(string serverName = null)
 		{
+			_serverName = serverName;
 		}
 
 		public Task<TResult> SendRequestToName<TResult>(string method, params object[] parlist)
