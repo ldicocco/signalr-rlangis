@@ -2,4 +2,14 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Demo</h2>
+
+<div>Server <span id="server01"></span></div>
+<div><button id="request">Request</button></div>
+<div id="result"></div>
+
+@section scripts
+{
+	<script src="~/Scripts/jquery.signalR-2.0.0-rc1.js"></script>
+	<script src="~/Scripts/WebDemo/demo.js"></script>
+}

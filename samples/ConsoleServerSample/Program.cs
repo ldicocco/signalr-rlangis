@@ -48,13 +48,15 @@ namespace ConsoleServerSample
 				});
 				hubProxy.StartRlangis().Wait();
 				Console.WriteLine("Ready");
+
+				Console.ReadLine();
+				hubProxy.Invoke("_unregisterServer", "server01").Wait();
 			}
 			catch (Exception e)
 			{
 				Console.WriteLine(e);
 			}
 
-			Console.ReadLine();
 		}
 	}
 }
