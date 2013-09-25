@@ -28,5 +28,11 @@ namespace Ldc.SignalR.Rlangis
 				return (TResult)res;
 			});
 		}
+
+		public static void OnRlangisName(this IHubProxy hubProxy, Action<string, string> onRegistered, Action<string, string> onUnregistered)
+		{
+			hubProxy.On("_registeredName", onRegistered);
+			hubProxy.On("_unregisteredName", onUnregistered);
+		}
 	}
 }

@@ -74,18 +74,24 @@ namespace Ldc.SignalR.Rlangis.HubHost.Internals
 			}
 		}
 
-		public void Remove(string connectionId)
+		public RlangisServerEntry Remove(string connectionId)
 		{
 			lock (syncRoot)
 			{
 				if (_servers.ContainsKey(connectionId))
 				{
+					var se = _servers[connectionId];
 					_servers.Remove(connectionId);
+					return se;
+				}
+				else
+				{
+					return null;
 				}
 			}
 		}
 
-		public void RemoveByName(string name)
+		public RlangisServerEntry RemoveByName(string name)
 		{
 			lock (syncRoot)
 			{
@@ -93,7 +99,13 @@ namespace Ldc.SignalR.Rlangis.HubHost.Internals
 				var server = _servers.Values.FirstOrDefault(p => p.Name == name);
 				if (server != null)
 				{
+					var se = _servers[server.ConnectionId];
 					_servers.Remove(server.ConnectionId);
+					return se;
+				}
+				else
+				{
+					return null;
 				}
 			}
 		}

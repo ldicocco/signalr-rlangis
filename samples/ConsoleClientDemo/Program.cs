@@ -21,9 +21,35 @@ namespace ConsoleClientDemo
 
 				var hubConnection = new HubConnection(hubUrl);
 				var hubProxy = hubConnection.CreateHubProxy("RlangisHub");
+				Action<string, string> onRegisteredName = (name, connectionId) =>
+					{
+						Console.WriteLine("Connected {0} {1}", name, connectionId);
+						if (name == "server01")
+						{
+							SendRequests(hubProxy);
+						}
+					};
+				Action<string, string> onUnregisteredName = (name, connectionId) =>
+					{
+						Console.WriteLine("Disconnected {0} {1}", name, connectionId);
+					};
+				hubProxy.OnRlangisName(onRegisteredName, onUnregisteredName);
+
+/*				hubProxy.On<string, string>("_registeredName", (name, connectionId) =>
+					{
+						Console.WriteLine("Connected {0} {1}", name, connectionId);
+						if (name == "server01")
+						{
+							SendRequests(hubProxy);
+						}
+					});
+				hubProxy.On<string, string>("_unregisteredName", (name, connectionId) =>
+					{
+						Console.WriteLine("Disconnected {0} {1}", name, connectionId);
+					});*/
 				hubConnection.Start().Wait();
 				Console.WriteLine("Ready");
-				SendRequests(hubProxy);
+				//				SendRequests(hubProxy);
 			}
 			catch (Exception e)
 			{
@@ -46,7 +72,7 @@ namespace ConsoleClientDemo
 			var res4 = await rc.SendRequest<IEnumerable<Country>>("server01", "queryCountries");
 			foreach (var item in res4)
 			{
-				Console.WriteLine("{0} {1}" , item.Name, item.Population);
+				Console.WriteLine("{0} {1}", item.Name, item.Population);
 			}
 		}
 	}
