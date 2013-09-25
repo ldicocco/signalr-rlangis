@@ -17,16 +17,18 @@ namespace ConsoleClientDemo
 		{
 			try
 			{
+				string serverName = "server01";
 				string hubUrl = "http://localhost:53588/";
 
 				var hubConnection = new HubConnection(hubUrl);
 				var hubProxy = hubConnection.CreateHubProxy("RlangisHub");
+
 				Action<string, string> onRegisteredName = (name, connectionId) =>
 					{
 						Console.WriteLine("Connected {0} {1}", name, connectionId);
-						if (name == "server01")
+						if (name == serverName)
 						{
-							SendRequests(hubProxy);
+							SendRequests(hubProxy, serverName);
 						}
 					};
 				Action<string, string> onUnregisteredName = (name, connectionId) =>
@@ -35,18 +37,6 @@ namespace ConsoleClientDemo
 					};
 				hubProxy.OnRlangisName(onRegisteredName, onUnregisteredName);
 
-/*				hubProxy.On<string, string>("_registeredName", (name, connectionId) =>
-					{
-						Console.WriteLine("Connected {0} {1}", name, connectionId);
-						if (name == "server01")
-						{
-							SendRequests(hubProxy);
-						}
-					});
-				hubProxy.On<string, string>("_unregisteredName", (name, connectionId) =>
-					{
-						Console.WriteLine("Disconnected {0} {1}", name, connectionId);
-					});*/
 				hubConnection.Start().Wait();
 				Console.WriteLine("Ready");
 				//				SendRequests(hubProxy);
@@ -59,17 +49,17 @@ namespace ConsoleClientDemo
 			Console.ReadLine();
 		}
 
-		static async void SendRequests(IHubProxy rc)
+		static async void SendRequests(IHubProxy rc, string serverName)
 		{
-			var res1 = await rc.SendRequest<Country>("server01", "testMethod");
+			var res1 = await rc.SendRequest<Country>(serverName, "testMethod");
 			Console.WriteLine("{0} {1}", res1.Name, res1.Population);
-			var res2 = await rc.SendRequest<long>("server01", "add", 2, 40);
+			var res2 = await rc.SendRequest<long>(serverName, "add", 2, 40);
 			Console.WriteLine(res2);
-			var res21 = await rc.SendRequest<double>("server01", "addDouble", 2.5, 40.6);
+			var res21 = await rc.SendRequest<double>(serverName, "addDouble", 2.5, 40.6);
 			Console.WriteLine(res21);
-			var res3 = await rc.SendRequest<string>("server01", "sayHello", "Luciano");
+			var res3 = await rc.SendRequest<string>(serverName, "sayHello", "Luciano");
 			Console.WriteLine(res3);
-			var res4 = await rc.SendRequest<IEnumerable<Country>>("server01", "queryCountries");
+			var res4 = await rc.SendRequest<IEnumerable<Country>>(serverName, "queryCountries");
 			foreach (var item in res4)
 			{
 				Console.WriteLine("{0} {1}", item.Name, item.Population);
