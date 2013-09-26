@@ -65,5 +65,10 @@ namespace ConsoleClientDemo
 				Console.WriteLine("{0} {1}", item.Name, item.Population);
 			}
 		}
+		static async void SendRequests2(IHubProxy rc, string serverName)
+		{
+			var res1 = await rc.SendRequest<long>(serverName, "testJS");
+			Console.WriteLine(res1);
+		}
 	}
 }

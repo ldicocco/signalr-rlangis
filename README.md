@@ -24,34 +24,39 @@ One console app, possibly behind firewalls, can invoke and get results from anot
 	string hubUrl = "http://localhost:53588/";
 
 	var hubConnection = new HubConnection(hubUrl);
-	var hubProxy = hubConnection.CreateRlangisHubProxy("server01");
-	hubProxy.OnRlangis("testMethod", () =>
+	var hubProxy = hubConnection.CreateHubProxy("RlangisHub");
+	using (var localHub = new LocalHub(hubProxy, "server01"))
 	{
-		return new Country("Denmark", 5500000);
-	});
-	hubProxy.OnRlangis("add", (long a, long b) =>
-	{
-		return a + b;
-	});
-	hubProxy.OnRlangis("addDouble", (double a, double b) =>
-	{
-		return a + b;
-	});
-	hubProxy.OnRlangis("sayHello", (string a) =>
-	{
-		return "Hello " + a;
-	});
-	hubProxy.OnRlangis("queryCountries", () =>
-	{
-		var countries = new Country[] {
-		new Country("Italy", 56000000),
-		new Country("Denmark", 5500000),
-		new Country("U.S.A.", 316285000),
-		};
-		return countries;
-	});
-	hubProxy.StartRlangis().Wait();
-	Console.WriteLine("Ready");
+					localHub.OnRlangis("testMethod", () =>
+					{
+						return new Country("Denmark", 5500000);
+					});
+					localHub.OnRlangis("add", (long a, long b) =>
+					{
+						return a + b;
+					});
+					localHub.OnRlangis("addDouble", (double a, double b) =>
+					{
+						return a + b;
+					});
+					localHub.OnRlangis("sayHello", (string a) =>
+					{
+						return "Hello " + a;
+					});
+					localHub.OnRlangis("queryCountries", () =>
+					{
+						var countries = new Country[] {
+							new Country("Italy", 56000000),
+							new Country("Denmark", 5500000),
+							new Country("U.S.A.", 316285000),
+						};
+						return countries;
+					});
+					hubConnection.Start().ContinueWith((t) => localHub.Activate()).Wait();
+					Console.WriteLine("Ready");
+
+					Console.ReadLine();
+	}
 
 ## Client
 	string serverName = "server01";
