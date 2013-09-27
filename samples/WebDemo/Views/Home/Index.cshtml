@@ -4,12 +4,22 @@
 
 <h2>Demo</h2>
 
+<fieldset>
+	<legend>Remote server01</legend>
 <div>Server <span id="server01"></span></div>
 <div><button id="request">Request</button></div>
 <div id="result"></div>
+</fieldset>
+
+<fieldset>
+	<legend>LocalHub</legend>
+<div>LocalHub name <input id="localHubName" type="text" value="server02" /></div>
+<div><button id="activate">Activate LocalHub</button></div>
+</fieldset>
 
 @section scripts
 {
 	<script src="~/Scripts/jquery.signalR-2.0.0-rc1.js"></script>
+	<script src="~/Scripts/rlangis.js"></script>
 	<script src="~/Scripts/WebDemo/demo.js"></script>
 }

@@ -30,6 +30,10 @@ namespace ConsoleClientDemo
 						{
 							SendRequests(hubProxy, serverName);
 						}
+						else if (name == "server02")
+						{
+							SendRequests2(hubProxy, "server02");
+						}
 					};
 				Action<string, string> onUnregisteredName = (name, connectionId) =>
 					{
@@ -67,6 +71,7 @@ namespace ConsoleClientDemo
 		}
 		static async void SendRequests2(IHubProxy rc, string serverName)
 		{
+			Console.WriteLine("REQUESTS TO " + serverName);
 			var res1 = await rc.SendRequest<long>(serverName, "testJS");
 			Console.WriteLine(res1);
 		}
