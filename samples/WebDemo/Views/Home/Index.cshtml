@@ -1,20 +1,23 @@
 ﻿@{
-    ViewBag.Title = "Index";
+	ViewBag.Title = "Index";
 }
 
 <h2>Demo</h2>
 
 <fieldset>
 	<legend>Remote server01</legend>
-<div>Server <span id="server01"></span></div>
-<div><button id="request">Request</button></div>
-<div id="result"></div>
+	<div>Server <span id="server01"></span></div>
+	<div>
+		<button id="request">Request</button></div>
+	<div id="result"></div>
 </fieldset>
 
 <fieldset>
 	<legend>LocalHub</legend>
-<div>LocalHub name <input id="localHubName" type="text" value="server02" /></div>
-<div><button id="activate">Activate LocalHub</button></div>
+	<div>LocalHub name
+		<input id="localHubName" type="text" value="server02" /></div>
+	<div>
+		<button id="activate">Activate LocalHub</button></div>
 </fieldset>
 
 @section scripts
