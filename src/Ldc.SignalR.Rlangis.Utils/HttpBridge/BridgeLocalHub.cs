@@ -45,10 +45,9 @@ namespace Ldc.SignalR.Rlangis.Utils.HttpBridge
 
 		private HttpWebRequest CreateHttpWebRequest(BridgeRequest req)
 		{
-			//Accept Connection Content-Length Content-Type Date Expect Host If-Modified-Since Range Referer Transfer-Encoding User-Agent Proxy-Connection
-
 			var protectedHeaders = new Dictionary<string, Action<string, HttpWebRequest>> {
 				{"Accept", (val, hwr) => hwr.Accept = val},
+//				{"Accept", (val, hwr) => hwr.Accept = "application/json"},
 				{"Connection", (val, hwr) => {}},
 				{"Content-Length", (val, hwr) => hwr.ContentLength = long.Parse(val)},
 				{"Date", (val, hwr) => {}},
@@ -99,25 +98,25 @@ namespace Ldc.SignalR.Rlangis.Utils.HttpBridge
 				Console.WriteLine("{0} {1}", key, res.Headers[key]);
 			}
 		}
+		/*
+				private async Task<BridgeResponse> GetResponse(BridgeRequest req)
+				{
+					var res = new BridgeResponse();
+					string url = _baseUrl + req.Url;
+					Console.WriteLine(url);
+					HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(url);
+					webRequest.Method = req.HttpMethod;
+					Console.WriteLine("BING");
+					var wr = await webRequest.GetResponseAsync();
+					var webResponse = (HttpWebResponse)wr;
+					Console.WriteLine("BONG");
+					var stream = new System.IO.StreamReader(webResponse.GetResponseStream());
+					var result = stream.ReadToEnd();
 
-		private async Task<BridgeResponse> GetResponse(BridgeRequest req)
-		{
-			var res = new BridgeResponse();
-			string url = _baseUrl + req.Url;
-			Console.WriteLine(url);
-			HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(url);
-			webRequest.Method = req.HttpMethod;
-			Console.WriteLine("BING");
-			var wr = await webRequest.GetResponseAsync();
-			var webResponse = (HttpWebResponse)wr;
-			Console.WriteLine("BONG");
-			var stream = new System.IO.StreamReader(webResponse.GetResponseStream());
-			var result = stream.ReadToEnd();
-
-			res.StatusCode = (int)webResponse.StatusCode;
-			res.Body = result;
-			Console.WriteLine("{0} {1}", res.StatusCode, res.Body);
-			return res;
-		}
+					res.StatusCode = (int)webResponse.StatusCode;
+					res.Body = result;
+					Console.WriteLine("{0} {1}", res.StatusCode, res.Body);
+					return res;
+				}*/
 	}
 }

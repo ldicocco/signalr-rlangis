@@ -22,10 +22,9 @@ namespace LocalWebAPI
 			// Start OWIN host 
 			using (WebApp.Start<Startup>(url: baseAddress))
 			{
-				// Create HttpCient and make a request to api/values 
 				HttpClient client = new HttpClient();
 
-				var response = client.GetAsync(baseAddress + "api/values").Result;
+				var response = client.GetAsync(baseAddress + "api/countries").Result;
 
 				Console.WriteLine(response);
 				Console.WriteLine(response.Content.ReadAsStringAsync().Result);
@@ -45,9 +44,9 @@ namespace LocalWebAPI
 
 				}
 
+				Console.ReadLine();
 			}
 
-			Console.ReadLine();
 		}
 
 	}
