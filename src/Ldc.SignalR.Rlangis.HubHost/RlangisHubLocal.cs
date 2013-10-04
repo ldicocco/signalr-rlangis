@@ -9,12 +9,12 @@ using Ldc.SignalR.Rlangis.HubHost.Internals;
 
 namespace Ldc.SignalR.Rlangis.HubHost
 {
-	public class RlangisHubProxy
+	public class RlangisHubLocal
 	{
 		private string _serverName;
 		private string _connectionId;
 
-		public RlangisHubProxy(string serverName = null)
+		public RlangisHubLocal(string serverName = null)
 		{
 			_serverName = serverName;
 		}

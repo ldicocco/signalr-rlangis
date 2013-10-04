@@ -69,6 +69,21 @@ namespace Ldc.SignalR.Rlangis.HubHost
 			}
 		}
 
+		private static TResult JConvert<TResult>(object val)
+		{
+			if (val is Newtonsoft.Json.Linq.JObject)
+			{
+				var jo = val as Newtonsoft.Json.Linq.JObject;
+				return jo.ToObject<TResult>();
+			}
+			if (val is Newtonsoft.Json.Linq.JArray)
+			{
+				var jo = val as Newtonsoft.Json.Linq.JArray;
+				return jo.ToObject<TResult>();
+			}
+			return (TResult)val;
+		}
+
 		public Task<TResult> SendRequest<TResult>(string connectionId, string method, params object[] parlist)
 		{
 			var pr = new PendingRequest(connectionId);
@@ -76,7 +91,8 @@ namespace Ldc.SignalR.Rlangis.HubHost
 			_context.Clients.Client(connectionId)._request(pr.Id, method, parlist);
 			return pr.Tcs.Task.ContinueWith((t) =>
 			{
-				var res = t.Result;
+				return JConvert<TResult>(t.Result);
+/*				var res = t.Result;
 				if (t.Result is Newtonsoft.Json.Linq.JObject)
 				{
 					var jo = res as Newtonsoft.Json.Linq.JObject;
@@ -87,7 +103,7 @@ namespace Ldc.SignalR.Rlangis.HubHost
 					var jo = res as Newtonsoft.Json.Linq.JArray;
 					return jo.ToObject<TResult>();
 				}
-				return (TResult)res;
+				return (TResult)res;*/
 			});
 		}
 

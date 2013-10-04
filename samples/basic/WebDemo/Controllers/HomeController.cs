@@ -23,7 +23,7 @@ namespace WebDemo.Controllers
 
 		public async Task<ActionResult> TestRequest()
 		{
-			var proxy = new RlangisHubProxy("server01");
+			var proxy = new RlangisHubLocal("server01");
 			var res0 = await proxy.SendRequestToName<Country>("testMethod");
 			ViewBag.TestMethodRes = res0;
 

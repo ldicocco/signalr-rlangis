@@ -8,7 +8,7 @@ using Microsoft.AspNet.SignalR.Client.Hubs;
 
 namespace Ldc.SignalR.Rlangis
 {
-	public class LocalHub  : IHubProxy, IDisposable
+	public class LocalHub : IHubProxy, IDisposable
 	{
 		private bool _disposed;
 		private int _disposeTimeOut = 5000;
@@ -68,16 +68,32 @@ namespace Ldc.SignalR.Rlangis
 			_methodsTable[methodName] = executedFunc;
 		}
 
+		private static TResult JConvert<TResult>(object val)
+		{
+			if (val is Newtonsoft.Json.Linq.JObject)
+			{
+				var jo = val as Newtonsoft.Json.Linq.JObject;
+				return jo.ToObject<TResult>();
+			}
+			if (val is Newtonsoft.Json.Linq.JArray)
+			{
+				var jo = val as Newtonsoft.Json.Linq.JArray;
+				return jo.ToObject<TResult>();
+			}
+			return (TResult)val;
+		}
+
 		public void OnRlangis<T>(string methodName, Func<T, object> func)
 		{
 			Console.WriteLine("Encapsulated Func<T,object> " + methodName);
 			Func<object[], object> executedFunc = (list) =>
 			{
-				/*					Console.WriteLine("Called " + list);
-									Console.WriteLine("Type expected " + (typeof (T)).Name);
-									Console.WriteLine("Type " + list[0].GetType().Name);
-									Console.WriteLine("To call " + (T)list[0]);*/
-				return func((T)list[0]);
+/*				Console.WriteLine("Called " + list);
+				Console.WriteLine("Type expected " + (typeof(T)).Name);
+				Console.WriteLine("Type " + list[0].GetType().Name);
+				Console.WriteLine("To call " + (T)list[0]);*/
+				T p1 = JConvert<T>(list[0]);
+				return func(p1);
 			};
 			_methodsTable[methodName] = executedFunc;
 		}
@@ -87,7 +103,9 @@ namespace Ldc.SignalR.Rlangis
 			Console.WriteLine("Encapsulated Func<T1, T2, object> " + methodName);
 			Func<object[], object> executedFunc = (list) =>
 			{
-				return func((T1)list[0], (T2)list[1]);
+				T1 p1 = JConvert<T1>(list[0]);
+				T2 p2 = JConvert<T2>(list[1]);
+				return func(p1, p2);
 			};
 			_methodsTable[methodName] = executedFunc;
 		}
@@ -96,7 +114,10 @@ namespace Ldc.SignalR.Rlangis
 		{
 			Func<object[], object> executedFunc = (list) =>
 			{
-				return func((T1)list[0], (T2)list[1], (T3)list[3]);
+				T1 p1 = JConvert<T1>(list[0]);
+				T2 p2 = JConvert<T2>(list[1]);
+				T3 p3 = JConvert<T3>(list[2]);
+				return func(p1, p2, p3);
 			};
 			_methodsTable[methodName] = executedFunc;
 		}
@@ -105,7 +126,11 @@ namespace Ldc.SignalR.Rlangis
 		{
 			Func<object[], object> executedFunc = (list) =>
 			{
-				return func((T1)list[0], (T2)list[1], (T3)list[3], (T4)list[4]);
+				T1 p1 = JConvert<T1>(list[0]);
+				T2 p2 = JConvert<T2>(list[1]);
+				T3 p3 = JConvert<T3>(list[2]);
+				T4 p4 = JConvert<T4>(list[3]);
+				return func(p1, p2, p3, p4);
 			};
 			_methodsTable[methodName] = executedFunc;
 		}
@@ -164,7 +189,6 @@ namespace Ldc.SignalR.Rlangis
 						{
 							Deactivate().Wait(_disposeTimeOut);
 						}
-						//_hubProxy.Invoke("_unregisterServer", _name).Wait(_disposeTimeOut);
 						Console.WriteLine("Object disposed.");
 					}
 				}
