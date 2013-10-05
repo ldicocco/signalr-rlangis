@@ -24,12 +24,12 @@ namespace Ldc.SignalR.Rlangis
 			_name = name;
 			_hubProxy.On<string, string, object[]>("_request", (id, method, parameters) =>
 			{
-				Console.WriteLine(id + " " + method + " " + parameters);
+				//Console.WriteLine(id + " " + method + " " + parameters);
 				if (_methodsTable.ContainsKey(method))
 				{
-					Console.WriteLine("Method " + method + " found.");
+					//Console.WriteLine("Method " + method + " found.");
 					var res = _methodsTable[method](parameters);
-					Console.WriteLine("Result = " + res);
+					//Console.WriteLine("Result = " + res);
 					Invoke("_result", id, res);
 				}
 			});
@@ -59,7 +59,7 @@ namespace Ldc.SignalR.Rlangis
 
 		public void OnRlangis(string methodName, Func<object> func)
 		{
-			Console.WriteLine("Encapsulated Func<object> " + methodName);
+			//Console.WriteLine("Encapsulated Func<object> " + methodName);
 			Func<object[], object> executedFunc = (list) =>
 			{
 				Console.WriteLine("Called Func<object>");
@@ -85,13 +85,9 @@ namespace Ldc.SignalR.Rlangis
 
 		public void OnRlangis<T>(string methodName, Func<T, object> func)
 		{
-			Console.WriteLine("Encapsulated Func<T,object> " + methodName);
+			//Console.WriteLine("Encapsulated Func<T,object> " + methodName);
 			Func<object[], object> executedFunc = (list) =>
 			{
-/*				Console.WriteLine("Called " + list);
-				Console.WriteLine("Type expected " + (typeof(T)).Name);
-				Console.WriteLine("Type " + list[0].GetType().Name);
-				Console.WriteLine("To call " + (T)list[0]);*/
 				T p1 = JConvert<T>(list[0]);
 				return func(p1);
 			};
@@ -100,7 +96,7 @@ namespace Ldc.SignalR.Rlangis
 
 		public void OnRlangis<T1, T2>(string methodName, Func<T1, T2, object> func)
 		{
-			Console.WriteLine("Encapsulated Func<T1, T2, object> " + methodName);
+			//Console.WriteLine("Encapsulated Func<T1, T2, object> " + methodName);
 			Func<object[], object> executedFunc = (list) =>
 			{
 				T1 p1 = JConvert<T1>(list[0]);
@@ -189,7 +185,7 @@ namespace Ldc.SignalR.Rlangis
 						{
 							Deactivate().Wait(_disposeTimeOut);
 						}
-						Console.WriteLine("Object disposed.");
+						//Console.WriteLine("Object disposed.");
 					}
 				}
 

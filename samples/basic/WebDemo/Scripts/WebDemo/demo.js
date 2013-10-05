@@ -10,8 +10,9 @@ $(function () {
 
     var connection = $.hubConnection();
     var rlangisHubProxy = connection.createRlangisHubProxy();
-    rlangisHubProxy.onRlangisName(
-        function (name, connectionId) { $('#server01').text('CONNECTED ' + name + ' ' + connectionId); $('#request').show(); },
+    rlangisHubProxy.onRlangisConnected(
+        function (name, connectionId) { $('#server01').text('CONNECTED ' + name + ' ' + connectionId); $('#request').show(); });
+    rlangisHubProxy.onRlangisDisconnected(
         function (name, connectionId) { $('#server01').text('DISCONNECTED ' + name + ' ' + connectionId); $('#request').hide(); });
     var lh = new Ldc.SignalR.Rlangis.LocalHub(rlangisHubProxy);
     lh.onRlangis('testJS', function () { return 84; });

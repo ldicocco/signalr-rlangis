@@ -7,13 +7,15 @@
 			<tr><th>Name</th><th>Population</th></tr>
 			<tr data-ng-repeat="country in countries"><td>{{country.Name}}</td><td>{{country.Population}}</td></tr>
 		</table>
-		<div><button data-ng-click="loadCountries()">LOAD</button></div>
+		<div><button data-ng-disabled="connected" data-ng-click="loadCountries()">LOAD</button></div>
 	</div>
 </div>
 
 
 @section scripts
 {
+	<script src="~/Scripts/jquery.signalR-2.0.0-rc1.js"></script>
+	<script src="~/Scripts/rlangis.js"></script>
 	<script src="~/Scripts/angular.js"></script>
 	<script src="~/Scripts/App/App.js"></script>
 }
