@@ -6,16 +6,15 @@ using System.Threading.Tasks;
 
 namespace LocalWebAPI.Models
 {
-//	[System.Runtime.Serialization.DataContract]
 	public class Country
 	{
-//		[System.Runtime.Serialization.DataMember]
+		public int Id { get; set; }
 		public string Name { get; set; }
-//		[System.Runtime.Serialization.DataMember]
 		public int Population { get; set; }
 
-		public Country(string name, int population)
+		public Country(int id, string name, int population)
 		{
+			Id = id;
 			Name = name;
 			Population = population;
 		}
