@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net;
+using System.IO;
 using Microsoft.AspNet.SignalR.Client;
 
 using Ldc.SignalR.Rlangis;
@@ -23,20 +24,26 @@ namespace Ldc.SignalR.Rlangis.Utils.HttpBridge
 			this.OnRlangis("httpBridge", (BridgeRequest req) =>
 			{
 				PrintBridgeRequest(req);
-				//						return GetResponse(req);
 				var res = new BridgeResponse();
-				HttpWebRequest webRequest = CreateHttpWebRequest(req);
-				var webResponse = (HttpWebResponse)webRequest.GetResponseAsync().Result;
-				PrintHttpWebResponse(webResponse);
-				var stream = new System.IO.StreamReader(webResponse.GetResponseStream());
-				var result = stream.ReadToEnd();
-
-				res.StatusCode = (int)webResponse.StatusCode;
-				res.StatusDescription = webResponse.StatusDescription;
-				res.Body = result;
-				foreach (var key in webResponse.Headers.AllKeys)
+				try
 				{
-					res.Headers[key] = webResponse.Headers[key];
+					HttpWebRequest webRequest = CreateHttpWebRequest(req);
+					var webResponse = (HttpWebResponse)webRequest.GetResponseAsync().Result;
+					PrintHttpWebResponse(webResponse);
+					var stream = new System.IO.StreamReader(webResponse.GetResponseStream());
+					var result = stream.ReadToEnd();
+
+					res.StatusCode = (int)webResponse.StatusCode;
+					res.StatusDescription = webResponse.StatusDescription;
+					res.Body = result;
+					foreach (var key in webResponse.Headers.AllKeys)
+					{
+						res.Headers[key] = webResponse.Headers[key];
+					}
+				}
+				catch (Exception ex)
+				{
+					Console.WriteLine(ex);
 				}
 				Console.WriteLine("{0} {1}", res.StatusCode, res.Body);
 				return res;
@@ -50,6 +57,7 @@ namespace Ldc.SignalR.Rlangis.Utils.HttpBridge
 //				{"Accept", (val, hwr) => hwr.Accept = "application/json"},
 				{"Connection", (val, hwr) => {}},
 				{"Content-Length", (val, hwr) => hwr.ContentLength = long.Parse(val)},
+				{"Content-Type", (val, hwr) => hwr.ContentType = val},
 				{"Date", (val, hwr) => {}},
 				{"Expect", (val, hwr) => hwr.Expect = val},
 				{"Host", (val, hwr) => {}},
@@ -77,6 +85,18 @@ namespace Ldc.SignalR.Rlangis.Utils.HttpBridge
 					protectedHeaders[pair.Key](pair.Value, webRequest);
 				}
 			}
+
+			if (webRequest.ContentLength > 0)
+			{
+				ASCIIEncoding encoding = new ASCIIEncoding();
+				byte[] data = encoding.GetBytes(req.Body);
+				webRequest.ContentLength = data.Length;
+
+				Stream newStream = webRequest.GetRequestStream();
+				newStream.Write(data, 0, data.Length);
+				newStream.Close();
+			}
+
 			return webRequest;
 		}
 

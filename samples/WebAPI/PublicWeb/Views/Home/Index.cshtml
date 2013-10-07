@@ -3,11 +3,37 @@
 }
 <div data-ng-app="publicWeb">
 	<div data-ng-controller="MainCtrl">
+		<div>{{apiServer.isConnected}}</div>
+		<div>
+			<button data-ng-disabled="!apiServer.isConnected" data-ng-click="loadCountries()">Get Countries</button>
+		</div>
 		<table>
-			<tr><th>Name</th><th>Population</th></tr>
-			<tr data-ng-repeat="country in countries"><td>{{country.Name}}</td><td>{{country.Population}}</td></tr>
+			<tr>
+				<th>Name</th>
+				<th>Population</th>
+			</tr>
+			<tr data-ng-repeat="country in countries" data-ng-click="selectCountry(country)">
+				<td>{{country.Name}}</td>
+				<td>{{country.Population}}</td>
+			</tr>
 		</table>
-		<div><button data-ng-disabled="!connected" data-ng-click="loadCountries()">LOAD</button></div>
+		<fieldset>
+			<legend>SELECTED COUNTRY</legend>
+			<div><input type="text" data-ng-model="selectedCountry.Name" /></div>
+			<div><input type="number" data-ng-model="selectedCountry.Population" /></div>
+			<button data-ng-disabled="!apiServer.isConnected" data-ng-click="saveCountry(selectedCountry)">Save</button>
+		</fieldset>
+		<fieldset>
+			<legend>GET COUNTRY</legend>
+			<div>
+				<input type="number" data-ng-model="toLoad" />
+			</div>
+			<div>
+				<button data-ng-disabled="!apiServer.isConnected" data-ng-click="loadCountry(toLoad)">Get Country</button>
+			</div>
+			<div>{{loadedCountry.Name}}</div>
+			<div>{{loadedCountry.Population}}</div>
+		</fieldset>
 	</div>
 </div>
 

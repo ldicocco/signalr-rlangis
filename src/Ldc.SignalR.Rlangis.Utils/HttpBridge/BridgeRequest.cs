@@ -11,6 +11,7 @@ namespace Ldc.SignalR.Rlangis.Utils.HttpBridge
 		public string Url {get; set; }
 		public string HttpMethod {get; set; }
 		public Dictionary<string, string> Headers { get; set; }
+		public string Body { get; set; }
 
 		public BridgeRequest()
 		{

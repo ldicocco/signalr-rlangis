@@ -39,6 +39,9 @@ if (!Ldc.createNS) {
             var args = Array.prototype.slice.call(arguments);
             return this.invoke.call(this, '_routeToRlangisServer', args[0], args[1], args.slice(2));
         };
+        hubProxy.isActive = function (name) {
+            return this.invoke.call(this, '_isActive', name);
+        };
         return hubProxy;
     };
 
