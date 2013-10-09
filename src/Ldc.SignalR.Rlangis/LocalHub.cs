@@ -62,7 +62,7 @@ namespace Ldc.SignalR.Rlangis
 			//Console.WriteLine("Encapsulated Func<object> " + methodName);
 			Func<object[], object> executedFunc = (list) =>
 			{
-				Console.WriteLine("Called Func<object>");
+//				Console.WriteLine("Called Func<object>");
 				return func();
 			};
 			_methodsTable[methodName] = executedFunc;
