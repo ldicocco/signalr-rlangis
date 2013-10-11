@@ -39,18 +39,20 @@
             onRlangisNameDisconnected: onRlangisNameDisconnected
         };
     })
-    .factory('Country', ['$resource', function ($resource) { return $resource('bridge/apiServer/api/countries/:Id', { Id: '@id' }); }])
-    .controller('MainCtrl', function ($scope, $http, rlangis, Country) {
+    .factory('Person', ['$resource', function ($resource) { return $resource('bridge/apiServer/api/persons/:Id', { Id: '@id' }); }])
+    .controller('MainCtrl', function ($scope, $http, rlangis, Person) {
         $scope.apiServer = rlangis.getServerProxy('apiServer');
         $scope.toLoad = 0;
-        $scope.countries = [];
-        $scope.selectedCountry;
-        $scope.loadedCountry;
-        $scope.loadCountries = function () { $scope.countries = Country.query(); };
-        $scope.selectCountry = function (country) { $scope.selectedCountry = country; };
-        $scope.saveCountry = function (country) { country.$save(); };
-        $scope.loadCountry = function (id) {
-            Country.get({ Id: id }, function (country) { $scope.loadedCountry = country; });
+        $scope.persons = [];
+        $scope.selectedPerson;
+        $scope.newPerson = new Person();
+        $scope.loadedPerson;
+        $scope.loadPersons = function () { $scope.selectedPerson = null; $scope.persons = Person.query(); };
+        $scope.selectPerson = function (person) { $scope.selectedPerson = person; };
+        $scope.savePerson = function (person) { person.$save(); };
+        $scope.addPerson = function (person) { person.$save(function () { $scope.loadPersons(); }); };
+        $scope.loadPerson = function (id) {
+            Person.get({ Id: id }, function (person) { $scope.loadedPerson = person; });
         };
         rlangis.start().done(function () { $scope.apiServer.checkStatus(); });
     });

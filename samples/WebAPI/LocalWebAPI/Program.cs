@@ -17,14 +17,14 @@ namespace LocalWebAPI
 	{
 		static void Main(string[] args)
 		{
-			string baseAddress = "http://localhost:9000/";
+            string baseAddress = "http://localhost:9000/";
 
 			// Start OWIN host 
 			using (WebApp.Start<Startup>(url: baseAddress))
 			{
 				HttpClient client = new HttpClient();
 
-				var response = client.GetAsync(baseAddress + "api/countries").Result;
+				var response = client.GetAsync(baseAddress + "api/persons").Result;
 
 				Console.WriteLine(response);
 				Console.WriteLine(response.Content.ReadAsStringAsync().Result);

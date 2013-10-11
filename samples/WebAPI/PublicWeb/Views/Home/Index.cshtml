@@ -3,36 +3,41 @@
 }
 <div data-ng-app="publicWeb">
 	<div data-ng-controller="MainCtrl">
-		<div>{{apiServer.isConnected}}</div>
 		<div>
-			<button data-ng-disabled="!apiServer.isConnected" data-ng-click="loadCountries()">Get Countries</button>
+			<button data-ng-disabled="!apiServer.isConnected" data-ng-click="loadPersons()">Get Persons</button>
 		</div>
 		<table>
 			<tr>
-				<th>Name</th>
-				<th>Population</th>
+				<th>First Name</th>
+				<th>Last Name</th>
 			</tr>
-			<tr data-ng-repeat="country in countries" data-ng-click="selectCountry(country)">
-				<td>{{country.Name}}</td>
-				<td>{{country.Population}}</td>
+			<tr data-ng-repeat="person in persons" data-ng-click="selectPerson(person)">
+				<td>{{person.FirstName}}</td>
+				<td>{{person.LastName}}</td>
 			</tr>
 		</table>
 		<fieldset>
-			<legend>SELECTED COUNTRY</legend>
-			<div><input type="text" data-ng-model="selectedCountry.Name" /></div>
-			<div><input type="number" data-ng-model="selectedCountry.Population" /></div>
-			<button data-ng-disabled="!apiServer.isConnected" data-ng-click="saveCountry(selectedCountry)">Save</button>
+			<legend>SELECTED PERSON</legend>
+			<div><input type="text" data-ng-model="selectedPerson.FirstName" /></div>
+			<div><input type="text" data-ng-model="selectedPerson.LastName" /></div>
+			<button data-ng-disabled="!apiServer.isConnected" data-ng-click="savePerson(selectedPerson)">Save</button>
 		</fieldset>
+        <fieldset>
+            <legend>NEW PERSON</legend>
+            <div><input type="text" data-ng-model="newPerson.FirstName" /></div>
+            <div><input type="text" data-ng-model="newPerson.LastName" /></div>
+            <button data-ng-disabled="!apiServer.isConnected" data-ng-click="addPerson(newPerson)">Add</button>
+        </fieldset>
 		<fieldset>
-			<legend>GET COUNTRY</legend>
+			<legend>GET PERSON</legend>
 			<div>
-				<input type="number" data-ng-model="toLoad" />
+				<input type="number" data-ng-model="toLoad" value="1" />
 			</div>
 			<div>
-				<button data-ng-disabled="!apiServer.isConnected" data-ng-click="loadCountry(toLoad)">Get Country</button>
+				<button data-ng-disabled="!apiServer.isConnected" data-ng-click="loadPerson(toLoad)">Get Person</button>
 			</div>
-			<div>{{loadedCountry.Name}}</div>
-			<div>{{loadedCountry.Population}}</div>
+			<div>{{loadedPerson.FirstName}}</div>
+			<div>{{loadedPerson.LastName}}</div>
 		</fieldset>
 	</div>
 </div>
