@@ -7,9 +7,7 @@ using Microsoft.AspNet.SignalR.Client;
 
 using Ldc.SignalR.Rlangis;
 
-using DemoInfrastructure;
-
-namespace ConsoleServerSample
+namespace LocalServer
 {
 	class Program
 	{
@@ -17,16 +15,12 @@ namespace ConsoleServerSample
 		{
 			try
 			{
-				string hubUrl = "http://localhost:53588/";
+				string hubUrl = "http://localhost:49804/";
 
 				var hubConnection = new HubConnection(hubUrl);
 				var hubProxy = hubConnection.CreateHubProxy("RlangisHub");
 				using (var localHub = new LocalHub(hubProxy, "server01"))
 				{
-					localHub.OnRlangis("testMethod", () =>
-					{
-						return new Country("Denmark", 5500000);
-					});
 					localHub.OnRlangis("add", (long a, long b) =>
 					{
 						return a + b;
@@ -39,29 +33,20 @@ namespace ConsoleServerSample
 					{
 						return "Hello " + a;
 					});
-					localHub.OnRlangis("queryCountries", () =>
-					{
-						var countries = new Country[] {
-							new Country("Italy", 56000000),
-							new Country("Denmark", 5500000),
-							new Country("U.S.A.", 316285000),
-						};
-						return countries;
-					});
+					//					hubConnection.Start().ContinueWith((t) => localHub.Activate()).Wait();
 					hubConnection.TryUntilStart();
 					localHub.Activate().Wait();
+
 					Console.WriteLine("Ready");
 
 					Console.ReadLine();
 				}
-				//hubProxy.Invoke("_unregisterServer", "server01").Wait();
 			}
 			catch (Exception e)
 			{
 				Console.WriteLine(e);
 			}
 			Console.ReadLine();
-
 		}
 	}
 }

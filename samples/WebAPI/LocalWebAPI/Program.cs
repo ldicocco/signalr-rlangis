@@ -35,8 +35,8 @@ namespace LocalWebAPI
 				var hubProxy = hubConnection.CreateHubProxy("RlangisHub");
 				using (var localHub = new BridgeLocalHub(hubProxy, "apiServer", baseAddress))
 				{
-
-					hubConnection.Start().ContinueWith((t) => localHub.Activate()).Wait();
+					hubConnection.TryUntilStart();
+					localHub.Activate().Wait();
 
 					Console.WriteLine("Ready");
 
