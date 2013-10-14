@@ -20,7 +20,7 @@ namespace Ldc.SignalR.Rlangis
 		{
 			while (true)
 			{
-//				Console.WriteLine("START");
+//			Console.WriteLine("START");
 				try
 				{
 					hubConnection.Start().Wait();

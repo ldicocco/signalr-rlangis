@@ -13,7 +13,8 @@ namespace Ldc.SignalR.Rlangis.HubHost
 	class RlangisRequests
 	{
 		private static object syncRoot = new Object();
-		private static volatile RlangisRequests _instance;
+		//		private static volatile RlangisRequests _instance;
+		private static readonly Lazy<RlangisRequests> _instance = new Lazy<RlangisRequests>(() => new RlangisRequests(), true);
 		private IHubContext _context;
 
 		private readonly IDictionary<Guid, PendingRequest> _requests = null;
@@ -22,18 +23,19 @@ namespace Ldc.SignalR.Rlangis.HubHost
 		{
 			get
 			{
-				if (_instance == null)
-				{
-					lock (syncRoot)
-					{
-						if (_instance == null)
-						{
-							_instance = new RlangisRequests();
-						}
-					}
-				}
+				/*				if (_instance == null)
+								{
+									lock (syncRoot)
+									{
+										if (_instance == null)
+										{
+											_instance = new RlangisRequests();
+										}
+									}
+								}
 
-				return _instance;
+								return _instance;*/
+				return _instance.Value;
 			}
 		}
 
@@ -92,18 +94,6 @@ namespace Ldc.SignalR.Rlangis.HubHost
 			return pr.Tcs.Task.ContinueWith((t) =>
 			{
 				return JConvert<TResult>(t.Result);
-/*				var res = t.Result;
-				if (t.Result is Newtonsoft.Json.Linq.JObject)
-				{
-					var jo = res as Newtonsoft.Json.Linq.JObject;
-					return jo.ToObject<TResult>();
-				}
-				if (t.Result is Newtonsoft.Json.Linq.JArray)
-				{
-					var jo = res as Newtonsoft.Json.Linq.JArray;
-					return jo.ToObject<TResult>();
-				}
-				return (TResult)res;*/
 			});
 		}
 

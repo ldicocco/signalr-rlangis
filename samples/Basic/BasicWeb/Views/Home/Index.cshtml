@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Home Page";  
+}
+
+<div data-ng-app="App">
+	<div data-ng-controller="MainCtrl">
+		<div>
+			<input type="text" placeholder="Name" data-ng-model="sayHelloPar1" />
+			<button data-ng-disabled="!server01.isConnected" data-ng-click="sayHello()">Say Hello</button>
+			{{sayHelloRes}}
+		</div>
+		<div>
+			<input type="number" data-ng-model="addPar1" />
+			<input type="number" data-ng-model="addPar2" />
+			<button data-ng-disabled="!server01.isConnected" data-ng-click="add()">Add</button>
+			{{addRes}}
+		</div>
+		<div>
+			<input type="text" data-ng-model="addDoublePar1" />
+			<input type="text" data-ng-model="addDoublePar2" />
+			<button data-ng-disabled="!server01.isConnected" data-ng-click="addDouble()">Add Double</button>
+			{{addDoubleRes}}
+		</div>
+	</div>
+
+</div>
+
+@section scripts
+{
+	<script src="~/Scripts/jquery.signalR-2.0.0-rc1.js"></script>
+	<script src="~/Scripts/rlangis.js"></script>
+	<script src="~/Scripts/angular.js"></script>
+	<script src="~/Scripts/angular-resource.js"></script>
+	<script src="~/Scripts/App/App.js"></script>
+}

@@ -33,7 +33,6 @@ namespace LocalServer
 					{
 						return "Hello " + a;
 					});
-					//					hubConnection.Start().ContinueWith((t) => localHub.Activate()).Wait();
 					hubConnection.TryUntilStart();
 					localHub.Activate().Wait();
 
