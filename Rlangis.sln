@@ -30,6 +30,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ldc.SignalR.Rlangis.HubHost
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{5A65D220-2315-4C54-ACA0-E92129F04735}"
 	ProjectSection(SolutionItems) = preProject
+		angular-rlangis.js = angular-rlangis.js
+		src\Scripts\angular-rlangis.js = src\Scripts\angular-rlangis.js
 		src\Scripts\rlangis.js = src\Scripts\rlangis.js
 	EndProjectSection
 EndProject
