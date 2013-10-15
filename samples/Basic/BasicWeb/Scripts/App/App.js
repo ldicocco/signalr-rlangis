@@ -12,19 +12,20 @@
 				$rootScope.$apply(function () { if (name === _self.name) { _self.isConnected = true; } });
 			});
 
-    		this.hubProxy.onRlangisDisconnected(function (name, connectionId) {
-    			$rootScope.$apply(function () { if (name === _self.name) { _self.isConnected = false; } });
-    		});
+			this.hubProxy.onRlangisDisconnected(function (name, connectionId) {
+				$rootScope.$apply(function () { if (name === _self.name) { _self.isConnected = false; } });
+			});
 
-    		this.checkStatus = function () {
-    			this.hubProxy.invoke('_isActive', this.name).done(function (res) { $rootScope.$apply(function () { _self.isConnected = res; }); });
-    		};
-    		this.sendRequest = function () {
-    			var args = Array.prototype.slice.call(arguments);
-    			args.splice(0, 0, this.name);
-    			return this.hubProxy.sendRequest.apply(this.hubProxy, args);
-    		};
-    	}
+			this.checkStatus = function () {
+				this.hubProxy.invoke('_isActive', this.name).done(function (res) { $rootScope.$apply(function () { _self.isConnected = res; }); });
+			};
+
+			this.sendRequest = function () {
+				var args = Array.prototype.slice.call(arguments);
+				args.splice(0, 0, this.name);
+				return this.hubProxy.sendRequest.apply(this.hubProxy, args);
+			};
+		}
     	rlangisHubProxy.onRlangisConnected(function (name, connectionId) { $rootScope.$emit("serverStatus", name, true); });
     	rlangisHubProxy.onRlangisDisconnected(function (name, connectionId) { $rootScope.$emit("serverStatus", name, false); });
     	var onRlangisNameConnected = function (onConnected) {
@@ -68,6 +69,18 @@
 		$scope.addDouble = function () {
 			$scope.server01.sendRequest("addDouble", parseFloat($scope.addDoublePar1), parseFloat($scope.addDoublePar2))
 				.done(function (data) { $scope.$apply(function () { $scope.addDoubleRes = data; }); });
+		};
+
+		$scope.country;
+		$scope.getCountry = function () {
+			$scope.server01.sendRequest("getCountry")
+				.done(function (data) { $scope.$apply(function () { $scope.country = data; }); });
+		};
+
+		$scope.countries;
+		$scope.getCountries = function () {
+			$scope.server01.sendRequest("getCountries")
+				.done(function (data) { $scope.$apply(function () { $scope.countries = data; }); });
 		};
 
 		rlangis.start().done(function () { $scope.server01.checkStatus(); });

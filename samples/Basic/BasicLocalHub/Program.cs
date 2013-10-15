@@ -19,9 +19,9 @@ namespace BasicLocalHub
 			var hubProxy = hubConnection.CreateHubProxy("RlangisHub");
 			using (var localHub = new LocalHub(hubProxy, "server01"))
 			{
-				localHub.OnRlangis("getCountry", () =>
+				localHub.OnRlangis("sayHello", (string a) =>
 				{
-					return new Country("Denmark", 5500000);
+					return "Hello " + a;
 				});
 				localHub.OnRlangis("add", (long a, long b) =>
 				{
@@ -31,16 +31,18 @@ namespace BasicLocalHub
 				{
 					return a + b;
 				});
-				localHub.OnRlangis("sayHello", (string a) =>
+				localHub.OnRlangis("getCountry", () =>
 				{
-					return "Hello " + a;
+					return new Country("Denmark", 5550142);
 				});
-				localHub.OnRlangis("queryCountries", () =>
+				localHub.OnRlangis("getCountries", () =>
 				{
-					var countries = new Country[] {
-							new Country("Italy", 56000000),
-							new Country("Denmark", 5500000),
+					var countries = new List<Country> {
+							new Country("Italy", 59685227),
+							new Country("Denmark", 5550142),
 							new Country("U.S.A.", 316285000),
+							new Country("Norway", 5051518),
+							new Country("Sweden", 9596436),
 						};
 					return countries;
 				});

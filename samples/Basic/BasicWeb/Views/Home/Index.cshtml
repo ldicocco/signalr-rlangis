@@ -21,6 +21,17 @@
 			<button data-ng-disabled="!server01.isConnected" data-ng-click="addDouble()">Add Double</button>
 			{{addDoubleRes}}
 		</div>
+		<div>
+			<button data-ng-disabled="!server01.isConnected" data-ng-click="getCountry()">GetCountry</button>
+			{{country.Name}} {{country.Population}}
+		</div>
+		<div>
+			<button data-ng-disabled="!server01.isConnected" data-ng-click="getCountries()">GetCountries</button>
+			<table>
+				<tr><th>Name</th><th>Population</th></tr>
+				<tr data-ng-repeat="country in countries"><td>{{country.Name}}</td><td>{{country.Population}}</td></tr>
+			</table>
+		</div>
 	</div>
 
 </div>
