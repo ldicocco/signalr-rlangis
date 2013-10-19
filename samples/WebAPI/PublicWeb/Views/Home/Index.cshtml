@@ -1,6 +1,7 @@
 ﻿@{
-	ViewBag.Title = "Index";
+    ViewBag.Title = "Home Page";
 }
+
 <div data-ng-app="publicWeb">
 	<div data-ng-controller="MainCtrl">
 		<div>
@@ -22,12 +23,12 @@
 			<div><input type="text" data-ng-model="selectedPerson.LastName" /></div>
 			<button data-ng-disabled="!apiServer.isConnected" data-ng-click="savePerson(selectedPerson)">Save</button>
 		</fieldset>
-        <fieldset>
-            <legend>NEW PERSON</legend>
-            <div><input type="text" data-ng-model="newPerson.FirstName" /></div>
-            <div><input type="text" data-ng-model="newPerson.LastName" /></div>
-            <button data-ng-disabled="!apiServer.isConnected" data-ng-click="addPerson(newPerson)">Add</button>
-        </fieldset>
+		<fieldset>
+			<legend>NEW PERSON</legend>
+			<div><input type="text" data-ng-model="newPerson.FirstName" /></div>
+			<div><input type="text" data-ng-model="newPerson.LastName" /></div>
+			<button data-ng-disabled="!apiServer.isConnected" data-ng-click="addPerson(newPerson)">Add</button>
+		</fieldset>
 		<fieldset>
 			<legend>GET PERSON</legend>
 			<div>

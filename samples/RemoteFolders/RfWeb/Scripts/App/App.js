@@ -1,10 +1,11 @@
 ﻿(function () {
 
 	//angular module
-	var myApp = angular.module('myApp', ['angularTreeview']);
+	var myApp = angular.module('myApp', ['angularTreeview', 'ldcRlangis']);
 
 	//test controller
-	myApp.controller('myController', function ($scope) {
+	myApp.controller('myController', function ($scope, rlangis) {
+		$scope.server01 = rlangis.getServerProxy('server01');
 
 		//test tree model 1
 		$scope.roleList1 = [
@@ -92,6 +93,7 @@
 			$scope.roleList1.push({ "roleName": "Guests", "roleId": "role101", "children": [] });
 		};
 
+		rlangis.start().done(function () { alert("OK"); $scope.server01.checkStatus(); });
 	});
 
 })();

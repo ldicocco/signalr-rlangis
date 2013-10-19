@@ -23,6 +23,7 @@
 		<div style="display:table-row; width:500px;">
 			<div style="display:table-cell; width:250px;">
 				<input type="button" value="Test" data-ng-click="addNodes()" />
+				<input type="button" value="Test" ng-disabled="!server01.isConnected" data-ng-click="getRoot()" />
 				<!-- FIRST TREE -->
 				<div data-angular-treeview="true"
 					 data-tree-id="tree01"
