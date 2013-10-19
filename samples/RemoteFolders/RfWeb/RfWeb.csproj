@@ -208,11 +208,13 @@
     <Content Include="Scripts\angular-mocks.js" />
     <Content Include="Scripts\angular-resource.js" />
     <Content Include="Scripts\angular-resource.min.js" />
+    <Content Include="Scripts\angular-rlangis.js" />
     <Content Include="Scripts\angular-sanitize.js" />
     <Content Include="Scripts\angular-sanitize.min.js" />
     <Content Include="Scripts\angular-scenario.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
+    <Content Include="Scripts\App\App.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -515,6 +517,17 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\rlangis.js" />
+    <Content Include="Scripts\TreeView\angular.treeview.js" />
+    <Content Include="Scripts\TreeView\angular.treeview.min.js" />
+    <Content Include="Scripts\TreeView\css\angular.treeview.css" />
+    <Content Include="Scripts\TreeView\img\file.png" />
+    <Content Include="Scripts\TreeView\img\folder-closed.png" />
+    <Content Include="Scripts\TreeView\img\folder.png" />
+    <Content Include="Scripts\TreeView\img\jsfiddle01.png" />
+    <Content Include="Scripts\TreeView\img\jsfiddle02.png" />
+    <Content Include="Scripts\TreeView\img\preview.png" />
+    <Content Include="Scripts\TreeView\rlangis.treeview.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -541,6 +554,8 @@
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Scripts\TreeView\angular.treeview - Copy.min.js.map" />
+    <Content Include="Scripts\TreeView\angular.treeview.min.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
