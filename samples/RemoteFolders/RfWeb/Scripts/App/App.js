@@ -93,7 +93,7 @@
 			$scope.roleList1.push({ "roleName": "Guests", "roleId": "role101", "children": [] });
 		};
 
-		rlangis.start().done(function () { alert("OK"); $scope.server01.checkStatus(); });
+		rlangis.start().done(function () { $scope.server01.checkStatus(); });
 	});
 
 })();

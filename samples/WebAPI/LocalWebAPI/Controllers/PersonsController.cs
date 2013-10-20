@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Net;
 
 using LocalWebAPI.Models;
 
@@ -50,7 +51,12 @@ namespace LocalWebAPI.Controllers
         // GET api/values/5 
         public Person Get(int id)
         {
-            return _persons.SingleOrDefault(i => i.Id == id);
+            var person = _persons.SingleOrDefault(i => i.Id == id);
+			if (person == null)
+			{
+				throw new HttpResponseException(HttpStatusCode.NotFound);
+			}
+			return person;
         }
 
         // POST api/values 

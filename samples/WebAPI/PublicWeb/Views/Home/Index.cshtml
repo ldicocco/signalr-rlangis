@@ -5,7 +5,7 @@
 <div data-ng-app="publicWeb">
 	<div data-ng-controller="MainCtrl">
 		<div>
-			<button data-ng-disabled="!apiServer.isConnected" data-ng-click="loadPersons()">Get Persons</button>
+			<button class="btn" data-ng-disabled="!apiServer.isConnected" data-ng-click="loadPersons()">Get Persons</button>
 		</div>
 		<table>
 			<tr>
@@ -21,13 +21,13 @@
 			<legend>SELECTED PERSON</legend>
 			<div><input type="text" data-ng-model="selectedPerson.FirstName" /></div>
 			<div><input type="text" data-ng-model="selectedPerson.LastName" /></div>
-			<button data-ng-disabled="!apiServer.isConnected" data-ng-click="savePerson(selectedPerson)">Save</button>
+			<button class="btn" data-ng-disabled="!apiServer.isConnected" data-ng-click="savePerson(selectedPerson)">Save</button>
 		</fieldset>
 		<fieldset>
 			<legend>NEW PERSON</legend>
 			<div><input type="text" data-ng-model="newPerson.FirstName" /></div>
 			<div><input type="text" data-ng-model="newPerson.LastName" /></div>
-			<button data-ng-disabled="!apiServer.isConnected" data-ng-click="addPerson(newPerson)">Add</button>
+			<button class="btn" data-ng-disabled="!apiServer.isConnected" data-ng-click="addPerson(newPerson)">Add</button>
 		</fieldset>
 		<fieldset>
 			<legend>GET PERSON</legend>
@@ -35,7 +35,7 @@
 				<input type="number" data-ng-model="toLoad" value="1" />
 			</div>
 			<div>
-				<button data-ng-disabled="!apiServer.isConnected" data-ng-click="loadPerson(toLoad)">Get Person</button>
+				<button class="btn" data-ng-disabled="!apiServer.isConnected" data-ng-click="loadPerson(toLoad)">Get Person</button>
 			</div>
 			<div>{{loadedPerson.FirstName}}</div>
 			<div>{{loadedPerson.LastName}}</div>
