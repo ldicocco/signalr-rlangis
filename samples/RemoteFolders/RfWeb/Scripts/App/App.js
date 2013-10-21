@@ -5,81 +5,21 @@
 
 	//test controller
 	myApp.controller('myController', function ($scope, rlangis) {
+		var _self = this;
 		$scope.server01 = rlangis.getServerProxy('server01');
 
+		var applyFunc = function (func) {
+			var args = Array.prototype.slice.call(arguments);
+			return function () {
+				var args = Array.prototype.slice.call(arguments);
+				$scope.$apply(function () {
+					func.apply(_self, args);
+				});
+			};
+		};
+
 		//test tree model 1
-		$scope.roleList1 = [
-			{
-				"roleName": "User", "roleId": "role1", "children": [
-				{ "roleName": "subUser1", "roleId": "role11", "children": [] },
-				{
-					"roleName": "subUser2", "roleId": "role12", "children": [
-					{
-						"roleName": "subUser2-1", "roleId": "role121", "children": [
-						{ "roleName": "subUser2-1-1", "roleId": "role1211", "children": [] },
-						{ "roleName": "subUser2-1-2", "roleId": "role1212", "children": [] }
-						]
-					}
-					]
-				}
-				]
-			},
-
-			{ "roleName": "Admin", "roleId": "role2", "children": [] },
-
-			{ "roleName": "Guest", "roleId": "role3", "children": [] }
-		];
-
-		//test tree model 2
-		$scope.roleList2 = [
-			{
-				"roleName": "User", "roleId": "role1", "children": [
-				{ "roleName": "subUser1", "roleId": "role11", "collapsed": true, "children": [] },
-				{
-					"roleName": "subUser2", "roleId": "role12", "collapsed": true, "children": [
-					{
-						"roleName": "subUser2-1", "roleId": "role121", "children": [
-						{ "roleName": "subUser2-1-1", "roleId": "role1211", "children": [] },
-						{ "roleName": "subUser2-1-2", "roleId": "role1212", "children": [] }
-						]
-					}
-					]
-				}
-				]
-			},
-
-			{
-				"roleName": "Admin", "roleId": "role2", "children": [
-				{ "roleName": "subAdmin1", "roleId": "role11", "collapsed": true, "children": [] },
-				{
-					"roleName": "subAdmin2", "roleId": "role12", "children": [
-					{
-						"roleName": "subAdmin2-1", "roleId": "role121", "children": [
-						{ "roleName": "subAdmin2-1-1", "roleId": "role1211", "children": [] },
-						{ "roleName": "subAdmin2-1-2", "roleId": "role1212", "children": [] }
-						]
-					}
-					]
-				}
-				]
-			},
-
-			{
-				"roleName": "Guest", "roleId": "role3", "children": [
-				{ "roleName": "subGuest1", "roleId": "role11", "children": [] },
-				{
-					"roleName": "subGuest2", "roleId": "role12", "collapsed": true, "children": [
-					{
-						"roleName": "subGuest2-1", "roleId": "role121", "children": [
-						{ "roleName": "subGuest2-1-1", "roleId": "role1211", "children": [] },
-						{ "roleName": "subGuest2-1-2", "roleId": "role1212", "children": [] }
-						]
-					}
-					]
-				}
-				]
-			}
-		];
+		$scope.roleList1 = [];
 
 		$scope.$watch('tree01.currentNode', function (newObj, oldObj) {
 			if ($scope.tree01 && angular.isObject($scope.tree01.currentNode)) {
@@ -89,8 +29,13 @@
 		}, false);
 
 		$scope.addNodes = function () {
-			$scope.tree01.currentNode.children.push({ "roleName": "Guest 40", "roleId": "role201", "children": [] });
-			$scope.roleList1.push({ "roleName": "Guests", "roleId": "role101", "children": [] });
+		};
+
+		$scope.getRoot = function () {
+			$scope.server01.sendRequest("getFileSystemEntries", "Main", "/")
+				.done(
+					applyFunc(function (data) { $scope.roleList1 = data; })
+				);
 		};
 
 		rlangis.start().done(function () { $scope.server01.checkStatus(); });

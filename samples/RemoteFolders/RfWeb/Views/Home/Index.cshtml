@@ -7,44 +7,27 @@
 	<div ng-controller="myController">
 
 		<div style="display:table-row; width:500px;">
-			<div style="display:table-cell; width:250px;">
+			<div>
 				<div style="margin:10px 5px 30px 5px; padding:10px; background-color:#EEEEEE; border-radius:5px; font:12px Tahoma;">
-					<span><b>First Tree's Selected Node</b> : <br>{{tree01.currentNode.roleName}}</span>
-				</div>
-			</div>
-			<div style="display:table-cell; width:250px;">
-				<div style="margin:10px 5px 30px 5px; padding:10px; background-color:#EEEEEE; border-radius:5px; font:12px Tahoma;">
-					<span><b>Second Tree's Selected Node</b> : <br>{{tree02.currentNode.roleName}}</span>
+					<span><b>First Tree's Selected Node</b> : <br>{{tree01.currentNode.Path}}</span>
 				</div>
 			</div>
 		</div>
 
 
 		<div style="display:table-row; width:500px;">
-			<div style="display:table-cell; width:250px;">
-				<input type="button" value="Test" data-ng-click="addNodes()" />
-				<input type="button" value="Test" ng-disabled="!server01.isConnected" data-ng-click="getRoot()" />
+			<div>
+				<input class="btn" type="button" value="Get Root" ng-disabled="!server01.isConnected" data-ng-click="getRoot()" />
 				<!-- FIRST TREE -->
 				<div data-angular-treeview="true"
 					 data-tree-id="tree01"
 					 data-tree-model="roleList1"
-					 data-node-id="roleId"
-					 data-node-label="roleName"
+					 data-node-id="Path"
+					 data-node-label="Name"
 					 data-node-children="children">
 				</div>
 
 
-			</div>
-			<div style="display:table-cell; width:250px;">
-
-				<!-- SECOND TREE -->
-				<div data-angular-treeview="true"
-					 data-tree-id="tree02"
-					 data-tree-model="roleList2"
-					 data-node-id="roleId"
-					 data-node-label="roleName"
-					 data-node-children="children">
-				</div>
 			</div>
 		</div>
 	</div>
