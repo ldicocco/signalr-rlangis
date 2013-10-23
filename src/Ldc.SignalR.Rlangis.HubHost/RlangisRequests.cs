@@ -23,18 +23,6 @@ namespace Ldc.SignalR.Rlangis.HubHost
 		{
 			get
 			{
-				/*				if (_instance == null)
-								{
-									lock (syncRoot)
-									{
-										if (_instance == null)
-										{
-											_instance = new RlangisRequests();
-										}
-									}
-								}
-
-								return _instance;*/
 				return _instance.Value;
 			}
 		}

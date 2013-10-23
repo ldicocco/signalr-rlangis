@@ -3,8 +3,8 @@
 }
 
 
-<div ng-app="myApp">
-	<div ng-controller="myController">
+<div ng-app="App">
+	<div ng-controller="MainCtrl">
 
 		<div style="display:table-row; width:500px;">
 			<div>
@@ -13,7 +13,6 @@
 				</div>
 			</div>
 		</div>
-
 
 		<div style="display:table-row; width:500px;">
 			<div>
@@ -24,7 +23,9 @@
 					 data-tree-model="roleList1"
 					 data-node-id="Path"
 					 data-node-label="Name"
-					 data-node-children="children">
+					 data-node-children="children"
+					 data-expand-callback="onExpand(node)"
+					 >
 				</div>
 
 

@@ -1,10 +1,10 @@
 ﻿(function () {
 
 	//angular module
-	var myApp = angular.module('myApp', ['angularTreeview', 'ldcRlangis']);
+	var myApp = angular.module('App', ['angularTreeview', 'ldcRlangis']);
 
 	//test controller
-	myApp.controller('myController', function ($scope, rlangis) {
+	myApp.controller('MainCtrl', function ($scope, rlangis) {
 		var _self = this;
 		$scope.server01 = rlangis.getServerProxy('server01');
 
@@ -34,7 +34,20 @@
 		$scope.getRoot = function () {
 			$scope.server01.sendRequest("getFileSystemEntries", "Main", "/")
 				.done(
-					applyFunc(function (data) { $scope.roleList1 = data; })
+					applyFunc(function (data) {
+						$scope.roleList1 = data;
+					})
+				);
+		};
+
+		$scope.onExpand = function (node) {
+//			alert(node.Name);
+			$scope.server01.sendRequest("getFileSystemEntries", "Main", node.Path)
+				.done(
+					applyFunc(function (data) {
+
+						node.children = data;
+					})
 				);
 		};
 
